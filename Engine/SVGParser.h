@@ -8,6 +8,7 @@ class SVGParser final
 public:
 	// The only function to be called
 	static bool GetVerticesFromSvgFile(const std::string& filePath, std::vector<std::vector<Point2f>> &vertices);
+	static bool GetVerticesFromSvgFile(const std::string& filePath, std::vector<std::vector<Point2i>>& vertices);
 
 private:
 	//static bool LoadGeometryFromSvgStream(unsigned char* pBlob, int blobSize, std::vector<Point2f> &vertices);
@@ -17,7 +18,10 @@ private:
 	static bool GetElementContent( const std::string& svgText, const std::string& elementName, std::string& elementValue, size_t& startContentPos, size_t& endContentPos);
 	static bool GetAttributeValue( const std::string& svgText, const std::string& attributeName, std::string& attributeValue );
 
-
+	Point2i convertToPoint2i(const Point2f& point)
+	{
+		return Point2i{ static_cast<int>(point.x), static_cast<int>(point.y) };
+	}
 	// Skips any optional commas in the stream
 	// SVG has a really funky format,
 	// not sure this code works for all cases.

@@ -1,8 +1,22 @@
 #include "base.h"
 #include <algorithm>
+#include <execution>
 #include <iostream>
 #include <fstream>
 #include "SVGParser.h"
+
+bool SVGParser::GetVerticesFromSvgFile(const std::string& filePath, std::vector<std::vector<Point2i>>& vertices)
+{
+	std::vector<std::vector<Point2f>> tempVec;
+
+	if (!GetVerticesFromSvgFile(filePath, tempVec))
+		return false;
+
+	vertices.reserve(tempVec.size());
+	std::transform(std::execution::par, tempVec.begin(), tempVec.end(), std::back_inserter(vertices), convertToPoint2i);
+
+	return true;
+}
 
 bool SVGParser::GetVerticesFromSvgFile( const std::string& filePath, std::vector<std::vector<Point2f>> &vertices )
 {
