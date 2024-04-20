@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseGame.h"
+#include "Level.h"
+
 class Game : public BaseGame
 {
 public:
@@ -22,6 +24,7 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
 private:
+	std::vector<std::unique_ptr<GameObject>> m_GameObjectsVec;
 
 	// FUNCTIONS
 	void Initialize();

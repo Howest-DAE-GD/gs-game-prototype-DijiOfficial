@@ -14,7 +14,7 @@ Game::~Game( )
 
 void Game::Initialize( )
 {
-	
+	m_GameObjectsVec.push_back(std::make_unique<Level>());
 }
 
 void Game::Cleanup( )
@@ -23,6 +23,10 @@ void Game::Cleanup( )
 
 void Game::Update( float elapsedSec )
 {
+	for (const auto& gameObject : m_GameObjectsVec)
+	{
+		gameObject->Update();
+	}
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -38,6 +42,10 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
+	for (const auto& gameObject : m_GameObjectsVec)
+	{
+		gameObject->Render();
+	}
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -105,6 +113,6 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 
 void Game::ClearBackground( ) const
 {
-	glClearColor( 0.0f, 0.0f, 0.3f, 1.0f );
+	glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
 }
