@@ -30,6 +30,9 @@
     <ClCompile Include="Level.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -42,6 +45,9 @@
       <Filter>GameFiles</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
+      <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
       <Filter>EngineFiles</Filter>
     </ClInclude>
   </ItemGroup>

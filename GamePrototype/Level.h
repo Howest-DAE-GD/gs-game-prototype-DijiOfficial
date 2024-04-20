@@ -1,22 +1,22 @@
 #pragma once
-#include "utils.h"
+#include "GameObject.h"
 
-class Level final
+class Level final : public GameObject
 {
 public:
 	Level();
-	~Level() = default;
+	~Level() override = default;
 
 	Level(const Level& other) = delete;
 	Level(Level&& other) = delete;
 	Level& operator=(const Level& other) = delete;
 	Level& operator=(Level&& other) = delete;
 
-	void Update();
-	void Render();
+	void Update() override {};
+	void Render() override;
 
 private:
-	std::vector<std::vector<Point2i>> m_VerticesVec;
+	std::vector<std::vector<Point2f>> m_VerticesVec;
 
 };
 
