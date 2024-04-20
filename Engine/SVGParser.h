@@ -8,7 +8,6 @@ class SVGParser final
 public:
 	// The only function to be called
 	static bool GetVerticesFromSvgFile(const std::string& filePath, std::vector<std::vector<Point2f>> &vertices);
-	static bool GetVerticesFromSvgFile(const std::string& filePath, std::vector<std::vector<Point2i>>& vertices);
 
 private:
 	//static bool LoadGeometryFromSvgStream(unsigned char* pBlob, int blobSize, std::vector<Point2f> &vertices);
