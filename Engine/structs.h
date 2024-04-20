@@ -21,6 +21,14 @@ struct Point2f
 	float y;
 };
 
+struct Point2i
+{
+	Point2i();
+	explicit Point2i(int x, int y);
+
+	int x;
+	int y;
+};
 
 
 struct Rectf
