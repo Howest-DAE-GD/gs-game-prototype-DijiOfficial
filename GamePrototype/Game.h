@@ -16,13 +16,6 @@ public:
 	void Update( float elapsedSec ) override;
 	void Draw( ) const override;
 
-	// Event handling
-	void ProcessKeyDownEvent( const SDL_KeyboardEvent& e ) override;
-	void ProcessKeyUpEvent( const SDL_KeyboardEvent& e ) override;
-	void ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e ) override;
-	void ProcessMouseDownEvent( const SDL_MouseButtonEvent& e ) override;
-	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
-
 private:
 	std::unique_ptr<Scene> m_Scene;
 
