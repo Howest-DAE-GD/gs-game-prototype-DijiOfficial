@@ -45,9 +45,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>GameFiles\Core</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>EngineFiles</Filter>
-    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>EngineFiles\InputManager</Filter>
     </ClCompile>
@@ -56,6 +53,12 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>EngineFiles\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClCompile>
+    <ClCompile Include="temp.h">
+      <Filter>GameFiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

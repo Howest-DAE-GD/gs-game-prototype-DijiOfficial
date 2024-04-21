@@ -165,6 +165,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="temp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

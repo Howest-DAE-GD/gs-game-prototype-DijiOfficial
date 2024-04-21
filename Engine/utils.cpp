@@ -259,23 +259,97 @@ void utils::DrawPolygon( const Point2f* pVertices, size_t nrVertices, bool close
 	glEnd( );
 }
 
-void utils::FillPolygon( const std::vector<Point2f>& vertices )
+//void utils::FillPolygon( const std::vector<Point2f>& vertices )
+//{
+//	FillPolygon( vertices.data( ), vertices.size( ) );
+//}
+//
+//void utils::FillPolygon( const Point2f *pVertices, size_t nrVertices )
+//{
+//	glBegin( GL_POLYGON );
+//	{
+//		for ( size_t idx{ 0 }; idx < nrVertices; ++idx )
+//		{
+//			glVertex2f( pVertices[idx].x, pVertices[idx].y );
+//		}
+//	}
+//	glEnd( );
+//}
+//#pragma endregion OpenGLDrawFunctionality
+
+void utils::FillPolygon(const std::vector<Point2f>& vertices)
 {
-	FillPolygon( vertices.data( ), vertices.size( ) );
+	FillPolygon(vertices.data(), vertices.size());
 }
 
-void utils::FillPolygon( const Point2f *pVertices, size_t nrVertices )
+void utils::FillPolygon(const Point2f* vertices, size_t nrVertices)
 {
-	glBegin( GL_POLYGON );
+	// Find bounding box of the polygon
+	Rectf boundingBox = GetPolygonBoundingBox(vertices, nrVertices);
+
+	// Iterate over each scanline in the bounding box
+	for (int y = static_cast<int>(boundingBox.bottom); y <= static_cast<int>(boundingBox.bottom + boundingBox.height); ++y)
 	{
-		for ( size_t idx{ 0 }; idx < nrVertices; ++idx )
+		std::vector<float> intersections;
+
+		// Find intersections of the scanline with polygon edges
+		for (size_t i = 0; i < nrVertices; ++i)
 		{
-			glVertex2f( pVertices[idx].x, pVertices[idx].y );
+			Point2f p1 = vertices[i];
+			Point2f p2 = vertices[(i + 1) % nrVertices];
+
+			// Skip horizontal edges
+			if (p1.y == p2.y)
+				continue;
+
+			// Check if the scanline intersects with this edge
+			if ((p1.y <= y && p2.y > y) || (p2.y <= y && p1.y > y))
+			{
+				// Calculate intersection point x-coordinate
+				float intersectionX = p1.x + (y - p1.y) / (p2.y - p1.y) * (p2.x - p1.x);
+				intersections.push_back(intersectionX);
+			}
+		}
+
+		// Sort intersections by x-coordinate
+		std::sort(intersections.begin(), intersections.end());
+
+		// Fill between pairs of intersections
+		for (size_t i = 0; i < intersections.size(); i += 2)
+		{
+			int startX = static_cast<int>(std::ceil(intersections[i]));
+			int endX = static_cast<int>(std::floor(intersections[i + 1]));
+
+			// Draw horizontal line between startX and endX
+			for (int x = startX; x <= endX; ++x)
+			{
+				DrawPoint(static_cast<float>(x), static_cast<float>(y));
+			}
 		}
 	}
-	glEnd( );
 }
-#pragma endregion OpenGLDrawFunctionality
+
+Rectf utils::GetPolygonBoundingBox(const Point2f* vertices, size_t nrVertices)
+{
+	float minX = vertices[0].x;
+	float maxX = vertices[0].x;
+	float minY = vertices[0].y;
+	float maxY = vertices[0].y;
+
+	for (size_t i = 1; i < nrVertices; ++i)
+	{
+		if (vertices[i].x < minX)
+			minX = vertices[i].x;
+		if (vertices[i].x > maxX)
+			maxX = vertices[i].x;
+		if (vertices[i].y < minY)
+			minY = vertices[i].y;
+		if (vertices[i].y > maxY)
+			maxY = vertices[i].y;
+	}
+
+	return Rectf(minX, minY, maxX - minX, maxY - minY);
+}
 
 #pragma region CollisionFunctionality
 float utils::GetDistance(float x1, float y1, float x2, float y2)
