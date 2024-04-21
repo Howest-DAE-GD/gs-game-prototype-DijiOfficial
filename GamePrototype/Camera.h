@@ -5,7 +5,6 @@ class Camera final : public GameObject
 {
 public:
 	Camera(Scene* scene, float width, float height);
-	//Camera(float width, float height);
 
 	Camera(const Camera& other) = delete;
 	Camera(Camera&& other) = delete;
