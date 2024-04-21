@@ -18,7 +18,7 @@ public:
 	GameObject& operator=(GameObject&& other) = delete;
 
 	virtual void Update() = 0;
-	virtual void Render() = 0;
+	virtual void Render() const = 0;
 
 protected:
 	Scene* GetOwner() const { return m_Owner; }

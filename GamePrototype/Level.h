@@ -13,7 +13,7 @@ public:
 	Level& operator=(Level&& other) = delete;
 
 	void Update() override {};
-	void Render() override;
+	void Render() const override;
 
 private:
 	std::vector<std::vector<Point2f>> m_VerticesVec;

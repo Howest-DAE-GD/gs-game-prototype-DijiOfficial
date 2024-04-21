@@ -16,7 +16,7 @@ Level::Level(Scene* scene)
 	//}
 }
 
-void Level::Render()
+void Level::Render() const
 {
 	utils::SetColor(Color4f{ 0.0f, 0.0f, 0.0f, 1.0f });
 	for (const auto& vertices : m_VerticesVec)
