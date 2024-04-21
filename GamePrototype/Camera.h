@@ -5,6 +5,7 @@ class Camera final : public GameObject
 {
 public:
 	Camera(Scene* scene, float width, float height);
+	//Camera(float width, float height);
 
 	Camera(const Camera& other) = delete;
 	Camera(Camera&& other) = delete;
@@ -12,9 +13,8 @@ public:
 	Camera& operator=(Camera&& other) = delete;
 	
 	void Update() override {};
-	void Render() override;
+	void Render() const override;
 	//void SetLevelBoundaries(const Rectf& levelBoundaries);
-	void Transform(const Rectf& target) const;
 	//Rectf GetCameraPos(const Rectf& target) const;
 	//bool GetCameraLock() const;
 	//void UnlockCamera();

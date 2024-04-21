@@ -7,11 +7,13 @@
 
 #include "InputManager.h"
 
-Scene::Scene()
+Scene::Scene(Rectf viewport)
 {
+    //make sure camera is first
+    AddGameObject<Camera>(viewport.width, viewport.height);
+    
     AddGameObject<Level>();
     AddGameObject<Player>();
-    AddGameObject<Camera>(1920.f, 1080.f);
 
     CommandInit();
 }
