@@ -2,9 +2,10 @@
 #include "SvgParser.h"
 #include "Level.h"
 
-Level::Level()
+Level::Level(Scene* scene)
+	: GameObject{ scene }
 {
-	SVGParser::GetVerticesFromSvgFile("level1test.svg", m_VerticesVec);
+	SVGParser::GetVerticesFromSvgFile("level1.svg", m_VerticesVec);
 	//for (int j = 0; j < m_VerticesVec.size(); j++)
 	//{
 	//	for (int i = 0; i < m_VerticesVec[j].size(); i++)

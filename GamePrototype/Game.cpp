@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Game.h"
+#include "InputManager.h"
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -7,26 +8,16 @@ Game::Game( const Window& window )
 	Initialize();
 }
 
-Game::~Game( )
-{
-	Cleanup( );
-}
-
 void Game::Initialize( )
 {
-	m_GameObjectsVec.push_back(std::make_unique<Level>());
-}
-
-void Game::Cleanup( )
-{
+	m_Scene = std::make_unique<Scene>();
 }
 
 void Game::Update( float elapsedSec )
 {
-	for (const auto& gameObject : m_GameObjectsVec)
-	{
-		gameObject->Update();
-	}
+	auto& input = InputManager::GetInstance();
+	(void) input.ProcessInput();
+	m_Scene->Update();
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -42,15 +33,24 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	for (const auto& gameObject : m_GameObjectsVec)
-	{
-		gameObject->Render();
-	}
+	m_Scene->Render();
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
+	switch ( e.keysym.sym )
+	{
+	case SDLK_LEFT:
+
+		break;
+	case SDLK_RIGHT:
+		//std::cout << "`Right arrow key released\n";
+		break;
+	case SDLK_1:
+	case SDLK_KP_1:
+		//std::cout << "Key 1 released\n";
+		break;
+	}
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
@@ -113,6 +113,6 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 
 void Game::ClearBackground( ) const
 {
-	glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
+	glClearColor( 0.9f, 0.9f, 0.9f, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
 }

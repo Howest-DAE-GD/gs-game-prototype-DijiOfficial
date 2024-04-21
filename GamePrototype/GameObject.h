@@ -4,10 +4,12 @@
 #include <vector>
 #include <memory>
 
+class Scene;
+
 class GameObject
 {
 public:
-	GameObject() = default;
+	GameObject(Scene* scene);
 	virtual ~GameObject() = default;
 
 	GameObject(const GameObject& other) = delete;
@@ -17,5 +19,10 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Render() = 0;
+
+protected:
+	Scene* GetOwner() const { return m_Owner; }
+private:
+	Scene* m_Owner;
 };
 

@@ -1,17 +1,17 @@
 #pragma once
 #include "BaseGame.h"
-#include "Level.h"
+#include "Scene.h"
 
-class Game : public BaseGame
+class Game final : public BaseGame
 {
 public:
 	explicit Game( const Window& window );
+	~Game() = default;
+
 	Game(const Game& other) = delete;
 	Game& operator=(const Game& other) = delete;
 	Game( Game&& other) = delete;
 	Game& operator=(Game&& other) = delete;
-	// http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rh-override
-	~Game();
 
 	void Update( float elapsedSec ) override;
 	void Draw( ) const override;
@@ -24,10 +24,9 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
 private:
-	std::vector<std::unique_ptr<GameObject>> m_GameObjectsVec;
+	std::unique_ptr<Scene> m_Scene;
 
 	// FUNCTIONS
 	void Initialize();
-	void Cleanup( );
 	void ClearBackground( ) const;
 };

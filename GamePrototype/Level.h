@@ -4,7 +4,7 @@
 class Level final : public GameObject
 {
 public:
-	Level();
+	Level(Scene* scene);
 	~Level() override = default;
 
 	Level(const Level& other) = delete;
