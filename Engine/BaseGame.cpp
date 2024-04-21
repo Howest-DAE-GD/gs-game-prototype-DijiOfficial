@@ -4,6 +4,8 @@
 #include <chrono>
 #include "BaseGame.h"
 
+#include "TimeSingleton.h"
+
 BaseGame::BaseGame(const Window& window)
 	: m_Window{ window }
 	, m_Viewport{ 0,0,window.width,window.height }
@@ -136,6 +138,7 @@ void BaseGame::Run()
 
 	// Main loop flag
 	bool quit{ false };
+	auto& timeSingleton = TimeSingleton::GetInstance();
 
 	// Set start time
 	std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
@@ -187,6 +190,7 @@ void BaseGame::Run()
 
 			// Prevent jumps in time caused by break points
 			elapsedSeconds = std::min(elapsedSeconds, m_MaxElapsedSeconds);
+			timeSingleton.SetDeltaTime(elapsedSeconds);
 
 			// Call the BaseGame object 's Update function, using time in seconds (!)
 			this->Update(elapsedSeconds);

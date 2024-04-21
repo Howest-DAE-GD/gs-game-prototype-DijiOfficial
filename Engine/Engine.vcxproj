@@ -33,11 +33,13 @@
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="Matrix2x3.h" />
     <ClInclude Include="base.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SoundStream.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="SVGParser.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TimeSingleton.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Vector2f.h" />
