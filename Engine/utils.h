@@ -43,7 +43,6 @@ namespace utils
 	// Fills an arc. The angle parameters are in radians, not in degrees.
 	void FillArc(const Point2f& center, float radX, float radY, float fromAngle, float tillAngle);
 
-	Rectf GetPolygonBoundingBox(const Point2f* vertices, size_t nrVertices);
 	void DrawPolygon( const std::vector<Point2f>& vertices, bool closed = true, float lineWidth = 1.0f );
 	void DrawPolygon( const Point2f* pVertices, size_t nrVertices, bool closed = true, float lineWidth = 1.0f );
 	void FillPolygon( const std::vector<Point2f>& vertices);
@@ -74,8 +73,10 @@ namespace utils
 	bool IsOverlapping( const Circlef& c1, const Circlef& c2 );
 	bool IsOverlapping( const std::vector<Point2f>& vertices, const Circlef& c );
 	bool IsOverlapping( const Point2f* vertices, size_t nrVertices, const Circlef& c );
-	bool Raycast( const Point2f* vertices, const size_t nrVertices, const Point2f& rayP1, const Point2f& rayP2, HitInfo& hitInfo );
-	bool Raycast( const std::vector<Point2f>& vertices, const Point2f& rayP1, const Point2f& rayP2, HitInfo& hitInfo );
+	bool Raycast(const Point2f* vertices, const size_t nrVertices, const Point2f& rayP1, const Point2f& rayP2, HitInfo& hitInfo);
+	bool Raycast(const std::vector<Point2f>& vertices, const Point2f& rayP1, const Point2f& rayP2, HitInfo& hitInfo);
+	bool Raycast( const Point2f* vertices, const size_t nrVertices, const Point2f& rayP1, const Point2f& rayP2 );
+	bool Raycast( const std::vector<Point2f>& vertices, const Point2f& rayP1, const Point2f& rayP2 );
 
 	bool IntersectLineSegments(const Point2f& p1, const Point2f& p2, const Point2f& q1, const Point2f& q2, float& outLambda1, float& outLambda2, float epsilon = 1e-6);
 	float DistPointLineSegment(const Point2f& p, const Point2f& a, const Point2f& b);
