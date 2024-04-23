@@ -12,6 +12,11 @@
 void StartHeapControl();
 void DumpMemoryLeaks();
 
+//struct AtExit
+//{
+//	~AtExit() { DumpMemoryLeaks(); }
+//} doAtExit;
+
 int SDL_main(int argv, char** args)
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -22,7 +27,7 @@ int SDL_main(int argv, char** args)
 	pGame->Run();
 	delete pGame;
 
-	DumpMemoryLeaks();
+	//DumpMemoryLeaks();
 	return 0;
 }
 
@@ -37,7 +42,7 @@ void StartHeapControl()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	// Set a breakpoint on the specified object allocation order number
-	//_CrtSetBreakAlloc(473);
+	//_CrtSetBreakAlloc(232);
 #endif
 }
 
