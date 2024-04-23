@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "InputManager.h"
 
+#include <iostream>
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
 {
@@ -15,6 +16,15 @@ void Game::Initialize( )
 
 void Game::Update( float elapsedSec )
 {
+	frameCount++;
+	totalElapsedTime += elapsedSec;
+	if (totalElapsedTime >= 0.2f)
+	{
+		std::cout << "FPS: " << frameCount / totalElapsedTime << "\n";
+		frameCount = 0;
+		totalElapsedTime = 0.0f;
+	}
+
 	auto& input = InputManager::GetInstance();
 	(void) input.ProcessInput();
 	m_Scene->Update();

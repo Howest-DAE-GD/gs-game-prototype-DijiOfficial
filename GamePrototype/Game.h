@@ -19,6 +19,8 @@ public:
 private:
 	std::unique_ptr<Scene> m_Scene;
 
+	int frameCount = 0;
+	float totalElapsedTime = 0.0f;
 	// FUNCTIONS
 	void Initialize();
 	void ClearBackground( ) const;
