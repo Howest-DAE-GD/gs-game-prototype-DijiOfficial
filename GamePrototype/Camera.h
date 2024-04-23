@@ -14,7 +14,7 @@ public:
 	void Update() override {};
 	void Render() const override;
 	//void SetLevelBoundaries(const Rectf& levelBoundaries);
-	//Rectf GetCameraPos(const Rectf& target) const;
+	Rectf GetCameraPos(const Rectf& target) const;
 	//bool GetCameraLock() const;
 	//void UnlockCamera();
 	//void LockCamera();

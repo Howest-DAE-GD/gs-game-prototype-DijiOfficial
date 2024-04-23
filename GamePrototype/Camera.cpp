@@ -5,9 +5,7 @@ Camera::Camera(Scene* scene, const float width, const float height)
 	: GameObject{ scene }
 	, m_Width{ width }
 	, m_Height{ height }
-	, m_LevelBoundaries{ 0.f, 0.f, 1920, 1080 }
-	, m_CameraOffset{ 0 }
-	, m_IsLocked{ false }
+	, m_LevelBoundaries{ 0.f, 0.f, 10240.f, 5760.f }
 {
 }
 //void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)
@@ -42,6 +40,13 @@ void Camera::Render() const
 	glTranslatef(-CameraPos.x, -CameraPos.y, 0);
 }
 
+Rectf Camera::GetCameraPos(const Rectf& target) const
+{
+	Point2f CameraPos{ Track(target) };
+	Clamp(CameraPos);
+	return Rectf{ CameraPos.x, CameraPos.y, m_Width, m_Height };
+}
+
 //bool Camera::GetCameraLock() const
 //{
 //	return m_IsLocked;
@@ -57,12 +62,6 @@ void Camera::Render() const
 //	m_IsLocked = true;
 //}
 //
-//Rectf Camera::GetCameraPos(const Rectf& target) const
-//{
-//	Point2f CameraPos{ Track(target) };
-//	Clamp(CameraPos);
-//	return Rectf{ CameraPos.x, CameraPos.y, m_Width, m_Height };
-//}
 //
 //void Camera::OffsetCamera(const int offset)
 //{
