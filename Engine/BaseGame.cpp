@@ -31,6 +31,8 @@ void BaseGame::InitializeGameEngine()
 	EnableMenuItem(hmenu, SC_CLOSE, MF_GRAYED);
 #endif
 
+	//SDL_SetRelativeMouseMode(SDL_TRUE);
+
 	// Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO /*| SDL_INIT_AUDIO*/) < 0)
 	{
@@ -156,24 +158,27 @@ void BaseGame::Run()
 			case SDL_QUIT:
 				quit = true;
 				break;
+			//case SDL_MOUSEMOTION:
+			//	std::cout << "Mouse motion event: " << e.motion.x << ", " << e.motion.y << std::endl;
+			//	break;
 			//case SDL_KEYDOWN:
 			//	this->ProcessKeyDownEvent(e.key);
 			//	break;
 			//case SDL_KEYUP:
 			//	this->ProcessKeyUpEvent(e.key);
 			//	break;
-			//case SDL_MOUSEMOTION:
-			//	e.motion.y = int(m_Window.height) - e.motion.y;
-			//	this->ProcessMouseMotionEvent(e.motion);
-			//	break;
+			case SDL_MOUSEMOTION:
+				e.motion.y = int(m_Window.height) - e.motion.y;
+				this->ProcessMouseMotionEvent(e.motion);
+				break;
 			//case SDL_MOUSEBUTTONDOWN:
 			//	e.button.y = int(m_Window.height) - e.button.y;
 			//	this->ProcessMouseDownEvent(e.button);
 			//	break;
-			//case SDL_MOUSEBUTTONUP:
-			//	e.button.y = int(m_Window.height) - e.button.y;
-			//	this->ProcessMouseUpEvent(e.button);
-			//	break;
+			case SDL_MOUSEBUTTONUP:
+				e.button.y = int(m_Window.height) - e.button.y;
+				this->ProcessMouseUpEvent(e.button);
+				break;
 			}
 		}
 

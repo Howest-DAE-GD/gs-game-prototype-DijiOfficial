@@ -1,9 +1,9 @@
 #pragma once
 #include "GameObject.h"
 #include "Tiles.h"
-#include "Texture.h"
 #include "WFC.h"
 
+class Texture;
 class Level final : public GameObject
 {
 public:
@@ -18,12 +18,13 @@ public:
 	void Update() override {};
 	void Render() const override;
 
+	bool IsPlayerColliding(const Rectf& playerShape) const;
 private:
 	std::vector<std::vector<Point2f>> m_VerticesVec;
 	Rectf m_Viewport;
-	//replace with vec of unique ptr? they would need to be shared
+
 	std::vector<Tiles*> m_TilesPtrVec;
-	const Texture* m_BmpTileTexturePtr = nullptr;
+	Texture* m_BmpTileTexturePtr = nullptr;
 	int m_WorldWidth = 320;
 	int m_WorldHeight = 180;
 	constexpr static int TILE_SIZE = 32;

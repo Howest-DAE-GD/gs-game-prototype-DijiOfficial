@@ -9,6 +9,7 @@
 #include <SDL_gamecontroller.h>
 #include <format>
 
+#include <iostream>
 bool InputManager::ProcessInput()
 {
 	SDL_Event e;
@@ -59,6 +60,39 @@ bool InputManager::ProcessInput()
 	}
 
 	return true;
+}
+
+void InputManager::ProcessMouseMotionEvent(const SDL_MouseMotionEvent& e)
+{
+	m_MouseMotion = e;
+
+	for (const auto& pair : m_CommandsUPtrMap)
+	{
+		if (pair.first != KeyState::MOUSEMOTION)
+			continue;
+
+		//const Input& input = pair.second.first;
+		//const auto& inputType = input.GetInput();
+
+		pair.second.second.commandUPtr->Execute();
+		
+	}
+}
+
+void InputManager::ProcessMouseUpEvent(const SDL_MouseButtonEvent& e)
+{
+	std::cout << "Mouse button pressed\n";
+	for (const auto& pair : m_CommandsUPtrMap)
+	{
+		if (pair.first != KeyState::MOUSEUP)
+			continue;
+
+		//const Input& input = pair.second.first;
+		//const auto& inputType = input.GetInput();
+
+		pair.second.second.commandUPtr->Execute();
+
+	}
 }
 
 void InputManager::ProcessKeyboardInput()

@@ -11,6 +11,8 @@ enum class KeyState
 	PRESSED,
 	RELEASED,
 	HELD,
+	MOUSEMOTION,
+	MOUSEUP,
 };
 enum class PlayerIdx
 {
@@ -45,6 +47,8 @@ private:
 class InputManager final : public Singleton<InputManager>
 {
 public:
+	void Init(const Window window) { m_Window = window; };
+
 	bool ProcessInput();
 	template<typename T, typename... Args>
 		requires std::derived_from<T, GameActorCommands>
@@ -57,8 +61,10 @@ public:
 		m_CommandsUPtrMap.emplace(state, std::make_pair(Input(input), PlayerCommand{ playerIdx, std::make_unique<T>(actor, std::forward<Args>(args)...) }));
 	}
 
+	SDL_MouseMotionEvent& GetMouseMotion() { return m_MouseMotion; }
+	void ProcessMouseMotionEvent(const SDL_MouseMotionEvent& e);
+	void ProcessMouseUpEvent(const SDL_MouseButtonEvent& e);
 private:
-
 	struct PlayerCommand
 	{
 		PlayerIdx playerIndex;
@@ -69,6 +75,8 @@ private:
 	std::unordered_multimap<KeyState, std::pair<Input, PlayerCommand>> m_CommandsUPtrMap;
 	std::map<int, std::unique_ptr<Controller>> m_PlayersMap;
 	std::vector<int> m_ControllersIdxs;
+	Window m_Window;
+	SDL_MouseMotionEvent m_MouseMotion;
 
 	void ProcessControllerInput();
 	void ProcessKeyboardInput();

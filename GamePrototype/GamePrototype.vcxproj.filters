@@ -25,6 +25,9 @@
     <Filter Include="EngineFiles\WFC">
       <UniqueIdentifier>{be98c7d1-dfe4-4c15-8b3e-6a4c162e26a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EngineFiles\ResourceManager">
+      <UniqueIdentifier>{d584e6f4-73c1-4639-be1f-2646b6a390a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,9 +35,6 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>EngineFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>GameFiles</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>GameFiles\GameObjectds</Filter>
@@ -66,6 +66,24 @@
     <ClCompile Include="WFC.cpp">
       <Filter>EngineFiles\WFC</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>EngineFiles\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullets.cpp">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttacks.cpp">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -73,9 +91,6 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>GameFiles\GameObjectds</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>GameFiles</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameFiles\GameObjectds</Filter>
@@ -109,6 +124,24 @@
     </ClInclude>
     <ClInclude Include="Tiles.h">
       <Filter>EngineFiles\WFC</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>EngineFiles\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttacks.h">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullets.h">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>GameFiles\GameObjectds</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

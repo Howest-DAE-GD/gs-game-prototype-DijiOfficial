@@ -3,6 +3,7 @@
 #include <map>
 
 class Player;
+class Level;
 enum class PointType;
 
 class GameActorCommands : public Command
@@ -32,30 +33,26 @@ private:
 	Player* m_PlayerPtr;
 };
 
-//class HitCommand final : public GameActorCommands
-//{
-//
-//public:
-//	HitCommand(GameObject* actor);
-//	~HitCommand() override = default;
-//
-//	void Execute() override;
-//
-//private:
-//	HealthCounter* m_HealthComponentPtr;
-//};
-//
-//class ScoreCommand final : public GameActorCommands
-//{
-//
-//public:
-//	ScoreCommand(GameObject* actorPtr, PointType point);
-//	~ScoreCommand() override = default;
-//
-//	void Execute() override;
-//
-//private:
-//	ScoreCounter* m_ScoreComponentPtr;
-//	PointType m_PointType;
-//};
+class Rotate final : public GameActorCommands
+{
+public:
+	Rotate(GameObject* actor);
+	~Rotate() override = default;
+
+	void Execute() override;
+private:
+	Player* m_PlayerPtr;
+};
+
+class Attack final : public GameActorCommands
+{
+public:
+	Attack(GameObject* actor);
+	~Attack() override = default;
+
+	void Execute() override;
+
+private:
+	Player* m_PlayerPtr;
+};
 

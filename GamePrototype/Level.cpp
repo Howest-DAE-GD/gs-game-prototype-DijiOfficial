@@ -3,11 +3,12 @@
 #include "Level.h"
 #include "EnumClasses.h"
 #include "Scene.h"
+#include "ResourceManager.h"
 
 Level::Level(Scene* scene)
 	: GameObject{ scene }
-	, m_BmpTileTexturePtr{ new Texture{"Images/Tiles.bmp"} }
 {
+	m_BmpTileTexturePtr = ResourceManager::GetInstance().LoadTexture("Images/Tiles.bmp");
 	SVGParser::GetVerticesFromSvgFile("test.svg", m_VerticesVec);
 	for (int j = 0; j < m_VerticesVec.size(); j++)
 	{
@@ -31,8 +32,6 @@ Level::~Level()
 		pTile = nullptr;
 	}
 	m_TilesPtrVec.clear();
-
-	delete m_BmpTileTexturePtr;
 }
 
 void Level::Render() const
@@ -40,10 +39,35 @@ void Level::Render() const
 	PaintMap();
 
 	utils::SetColor(Color4f{ 0.0f, 0.0f, 0.0f, 1.0f });
-	//for (const auto& vertices : m_VerticesVec)
-	//{
-	//	utils::DrawPolygon(vertices);
-	//}
+	for (const auto& vertices : m_VerticesVec)
+	{
+		utils::DrawPolygon(vertices);
+	}
+}
+
+bool Level::IsPlayerColliding(const Rectf& playerShape) const
+{
+	for (const auto& collisionBox : m_VerticesVec)
+	{
+		const Point2f bottomLeft(playerShape.left, playerShape.bottom);
+		const Point2f topLeft(playerShape.left, playerShape.bottom + playerShape.height);
+
+		utils::HitInfo hitInfo;
+		if (utils::Raycast(collisionBox, bottomLeft, topLeft, hitInfo))
+			return true;
+
+		const Point2f topRight(playerShape.left + playerShape.width, playerShape.bottom + playerShape.height);
+		if (utils::Raycast(collisionBox, topLeft, topRight, hitInfo))
+			return true;
+
+
+		const Point2f bottomRight(playerShape.left + playerShape.width, playerShape.bottom);
+		if (utils::Raycast(collisionBox, topRight, bottomRight, hitInfo))
+			return true;
+
+		(void)hitInfo;
+	}
+	return false; 
 }
 
 void Level::LoadMap()

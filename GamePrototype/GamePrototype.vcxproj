@@ -75,6 +75,11 @@
     <LibraryPath>$(SolutionDir)\x64\Debug;$(SolutionDir)\Libraries\SDLTtf\SDL2_ttf-2.20.2\lib\x64;$(SolutionDir)\Libraries\SDLMixer\SDL2_mixer-2.6.3\lib\x64;$(SolutionDir)\Libraries\SDLImage\SDL2_image-2.6.3\lib\x64;$(SolutionDir)\Libraries\SDLMain\SDL2-2.26.3\lib\x64;$(LibraryPath)</LibraryPath>
     <CustomBuildAfterTargets>BuildCompile</CustomBuildAfterTargets>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)\Libraries\SDLTtf\SDL2_ttf-2.20.2\include;$(SolutionDir)\Libraries\SDLMixer\SDL2_mixer-2.6.3\include;$(SolutionDir)\Libraries\SDLImage\SDL2_image-2.6.3\include;$(SolutionDir)\Libraries\SDLMain\SDL2-2.26.3\include;$(SolutionDir)\Engine;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\x64\Release;$(SolutionDir)\Libraries\SDLTtf\SDL2_ttf-2.20.2\lib\x64;$(SolutionDir)\Libraries\SDLMixer\SDL2_mixer-2.6.3\lib\x64;$(SolutionDir)\Libraries\SDLImage\SDL2_image-2.6.3\lib\x64;$(SolutionDir)\Libraries\SDLMain\SDL2-2.26.3\lib\x64;$(LibraryPath)</LibraryPath>
+    <CustomBuildAfterTargets>BuildCompile</CustomBuildAfterTargets>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -86,8 +91,15 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Xinput.lib</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies);Xinput.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Libraries\SDLMain\SDL2-2.26.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLImage\SDL2_image-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLMixer\SDL2_mixer-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLTtf\SDL2_ttf-2.20.2\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -104,8 +116,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Xinput.lib</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies);Xinput.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Libraries\SDLMain\SDL2-2.26.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLImage\SDL2_image-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLMixer\SDL2_mixer-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLTtf\SDL2_ttf-2.20.2\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -128,10 +147,10 @@
       <Message>Copying dll files to executable</Message>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Libraries\SDLMain\SDL2-2.26.3\lib\x64\*.dll" "$(TargetDir)" /y /d
-xcopy "$(SolutionDir)Libraries\SDLImage\SDL2_image-2.6.3\lib\x64\*.dll" "$(TargetDir)" /y /d
-xcopy "$(SolutionDir)Libraries\SDLMixer\SDL2_mixer-2.6.3\lib\x64\*.dll" "$(TargetDir)" /y /d
-xcopy "$(SolutionDir)Libraries\SDLTtf\SDL2_ttf-2.20.2\lib\x64\*.dll" "$(TargetDir)" /y /d
+      <Command>xcopy "$(SolutionDir)Libraries\SDLMain\SDL2-2.26.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLImage\SDL2_image-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLMixer\SDL2_mixer-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLTtf\SDL2_ttf-2.20.2\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
 xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -150,12 +169,22 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Xinput.lib</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;%(AdditionalDependencies);Xinput.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Libraries\SDLMain\SDL2-2.26.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLImage\SDL2_image-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLMixer\SDL2_mixer-2.6.3\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Libraries\SDLTtf\SDL2_ttf-2.20.2\lib\$(PlatformTarget)\*.dll" "$(TargetDir)" /y /d
+xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameActorCommands.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -164,14 +193,19 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAttacks.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Tiles.cpp" />
     <ClCompile Include="WFC.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullets.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnumClasses.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameActorCommands.h" />
@@ -180,6 +214,8 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAttacks.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Tiles.h" />
     <ClInclude Include="WFC.h" />

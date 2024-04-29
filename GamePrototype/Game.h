@@ -13,6 +13,9 @@ public:
 	Game( Game&& other) = delete;
 	Game& operator=(Game&& other) = delete;
 
+	void ProcessMouseMotionEvent(const SDL_MouseMotionEvent& e) override;
+	void ProcessMouseUpEvent(const SDL_MouseButtonEvent& e) override;
+
 	void Update( float elapsedSec ) override;
 	void Draw( ) const override;
 

@@ -2,16 +2,31 @@
 #include "Game.h"
 #include "InputManager.h"
 
+//temp
 #include <iostream>
+#include "EnemyManager.h"
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
 {
+	InputManager::GetInstance().Init(window);
 	Initialize();
 }
 
 void Game::Initialize( )
 {
 	m_Scene = std::make_unique<Scene>(GetViewPort());
+	//temp code
+	m_Scene->GetGameObject<EnemyManager>()->AddEnemy(m_Scene.get(), m_Scene->GetGameObject<Player>(), Point2f{ 5300.0f, 1300.0f });
+}
+
+void Game::ProcessMouseMotionEvent(const SDL_MouseMotionEvent& e)
+{
+	InputManager::GetInstance().ProcessMouseMotionEvent(e);
+}
+
+void Game::ProcessMouseUpEvent(const SDL_MouseButtonEvent& e)
+{
+	InputManager::GetInstance().ProcessMouseUpEvent(e);
 }
 
 void Game::Update( float elapsedSec )
@@ -20,7 +35,7 @@ void Game::Update( float elapsedSec )
 	totalElapsedTime += elapsedSec;
 	if (totalElapsedTime >= 0.2f)
 	{
-		std::cout << "FPS: " << frameCount / totalElapsedTime << "\n";
+		//std::cout << "FPS: " << frameCount / totalElapsedTime << "\n";
 		frameCount = 0;
 		totalElapsedTime = 0.0f;
 	}
@@ -28,16 +43,6 @@ void Game::Update( float elapsedSec )
 	auto& input = InputManager::GetInstance();
 	(void) input.ProcessInput();
 	m_Scene->Update();
-	// Check keyboard state
-	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-	//if ( pStates[SDL_SCANCODE_RIGHT] )
-	//{
-	//	std::cout << "Right arrow key is down\n";
-	//}
-	//if ( pStates[SDL_SCANCODE_LEFT] && pStates[SDL_SCANCODE_UP])
-	//{
-	//	std::cout << "Left and up arrow keys are down\n";
-	//}
 }
 
 void Game::Draw( ) const
