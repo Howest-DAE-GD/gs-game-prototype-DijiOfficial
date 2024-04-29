@@ -84,6 +84,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>GameFiles\GameObjectds</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionSingleton.cpp">
+      <Filter>EngineFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>GameFiles\GameObjectds</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSingleton.h">
+      <Filter>EngineFiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

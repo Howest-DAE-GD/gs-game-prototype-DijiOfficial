@@ -2,9 +2,11 @@
 
 #include "PlayerAttacks.h"
 #include "Level.h"
+#include "CollisionSingleton.h"
 
 void ShootAttack::Update()
 {
+	auto& collision = CollisionSingleton::GetInstance();
 	for (size_t i{}; i < m_Bullets.size(); ++i)
 	{
 		m_Bullets[i]->Update();
@@ -12,7 +14,8 @@ void ShootAttack::Update()
 
 	for (auto it = m_Bullets.begin(); it != m_Bullets.end();)
 	{
-		if (m_LevelPtr->IsPlayerColliding((*it)->GetShape()))
+		const auto& shape = (*it)->GetShape();
+		if (m_LevelPtr->IsPlayerColliding(shape) or collision.HitEnemyType(shape))
 			it = m_Bullets.erase(it);
 		else
 			++it;

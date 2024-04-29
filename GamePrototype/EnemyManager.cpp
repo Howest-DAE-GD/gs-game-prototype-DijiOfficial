@@ -12,10 +12,17 @@ EnemyManager::EnemyManager(Scene* scene)
 
 void EnemyManager::Update()
 {
-	for (auto& enemy : m_Enemies)
-	{
-		enemy->Update();
-	}
+    auto it = m_Enemies.begin();
+    while (it != m_Enemies.end())
+    {
+        if ((*it)->GetState() == EnemyState::DEAD)
+            it = m_Enemies.erase(it);
+        else
+        {
+            (*it)->Update();
+            ++it;
+        }
+    }
 }
 
 void EnemyManager::Render() const 
