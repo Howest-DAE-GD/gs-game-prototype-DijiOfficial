@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "EnemyManager.h"
+#include "MainMenu.h"
 
 //temp
 #include <iostream>
@@ -23,6 +24,7 @@ Game::Game( const Window& window )
 #pragma region Initialization
 void Game::Initialize( )
 {
+	CreateMenus();
 	CreateScene();
 	CreateHud();
 
@@ -52,6 +54,15 @@ void Game::CreateHud()
 {
 	m_Hud = std::make_unique<Scene>();
 	m_Hud->AddGameObject<PlayerHealthBar>(Rectf{ 20.0f, 20.0f, 300.0f, 40.0f }, Color4f{ 0.0f, 1.0f, 0.0f, 1.0f }, m_Scene->GetGameObject<Player>()->GetHealth());
+}
+
+void Game::CreateMenus()
+{
+	auto& viewport = GetViewPort();
+	m_MainMenu = std::make_unique<Scene>();
+	m_Controlls = std::make_unique<Scene>();
+
+	m_MainMenu->AddGameObject<MainMenu>(Point2f{ viewport.width, viewport.height });
 }
 
 void Game::CommandInit() const
@@ -92,28 +103,102 @@ void Game::ProcessMouseUpEvent(const SDL_MouseButtonEvent& e)
 
 void Game::Update( float elapsedSec )
 {
-	frameCount++;
-	totalElapsedTime += elapsedSec;
-	if (totalElapsedTime >= 0.2f)
+	if (m_GameState == GameState::LEVEL)
 	{
-		//std::cout << "FPS: " << frameCount / totalElapsedTime << "\n";
-		frameCount = 0;
-		totalElapsedTime = 0.0f;
+		auto& input = InputManager::GetInstance();
+		(void) input.ProcessInput();
 	}
 
-	auto& input = InputManager::GetInstance();
-	(void) input.ProcessInput();
-	m_Scene->Update();
-	m_Hud->Update();
+	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
+
+	if (pStates[SDL_SCANCODE_RETURN])
+		if (m_GameState == GameState::MAIN_MENU)
+		{
+			int selection = m_MainMenu->GetGameObject<MainMenu>()->GetSelectedButton();
+			if (selection == 0)
+			{
+				m_GameState = GameState::LEVEL;
+			}
+		}
+
+	{ //ghetto fps counter
+		frameCount++;
+		totalElapsedTime += elapsedSec;
+		if (totalElapsedTime >= 0.2f)
+		{
+			//std::cout << "FPS: " << frameCount / totalElapsedTime << "\n";
+			frameCount = 0;
+			totalElapsedTime = 0.0f;
+		}
+	}
+
+	switch (m_GameState)
+	{
+	case GameState::INTRO:
+		break;
+	case GameState::MAIN_MENU:
+		m_MainMenu->Update();
+		break;
+	case GameState::OPTIONS:
+		break;
+	case GameState::SETTINGS:
+		break;
+	case GameState::CONTROLS:
+		break;
+	case GameState::MENU:
+		break;
+	case GameState::UPGRADES:
+		break;
+	case GameState::CLASS_SELECTION:
+		break;
+	case GameState::LEVEL:
+		m_Scene->Update();
+		m_Hud->Update();
+		break;
+	case GameState::PAUSE:
+		break;
+	default:
+		break;
+	}
+
 }
 
 void Game::Draw( ) const
 {
-	glPushMatrix();
-	{
-		m_Scene->Render();
-	}
-	glPopMatrix();
+	ClearBackground();
 
-	m_Hud->Render();
+	switch (m_GameState)
+	{
+	case GameState::INTRO:
+		break;
+	case GameState::MAIN_MENU:
+		m_MainMenu->Render();
+		break;
+	case GameState::OPTIONS:
+		break;
+	case GameState::SETTINGS:
+		break;
+	case GameState::CONTROLS:
+		break;
+	case GameState::MENU:
+		break;
+	case GameState::UPGRADES:
+		break;
+	case GameState::CLASS_SELECTION:
+		break;
+	case GameState::LEVEL:
+		glPushMatrix();
+		{
+			m_Scene->Render();
+		}
+		glPopMatrix();
+
+		m_Hud->Render();
+		break;
+	case GameState::PAUSE:
+		break;
+	default:
+		break;
+	}
+	
 }

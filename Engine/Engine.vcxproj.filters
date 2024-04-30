@@ -42,6 +42,9 @@
     <ClCompile Include="Vector2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseGame.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

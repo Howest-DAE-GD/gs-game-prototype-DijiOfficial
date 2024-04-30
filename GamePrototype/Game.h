@@ -2,6 +2,21 @@
 #include "BaseGame.h"
 #include "Scene.h"
 
+enum class GameState
+{
+	INVALID,
+	INTRO,
+	MAIN_MENU,
+	OPTIONS,
+	SETTINGS,
+	CONTROLS,
+	MENU,
+	UPGRADES,
+	CLASS_SELECTION,
+	LEVEL,
+	PAUSE,
+};
+
 class Game final : public BaseGame
 {
 public:
@@ -22,7 +37,10 @@ public:
 private:
 	std::unique_ptr<Scene> m_Scene;
 	std::unique_ptr<Scene> m_Hud;
+	std::unique_ptr<Scene> m_MainMenu;
+	std::unique_ptr<Scene> m_Controlls;
 
+	GameState m_GameState = GameState::MAIN_MENU;
 	int frameCount = 0;
 	float totalElapsedTime = 0.0f;
 	
@@ -30,7 +48,9 @@ private:
 	void Initialize();
 	void CreateScene();
 	void CreateHud();
+	void CreateMenus();
 	void CommandInit() const;
 	void CreateObservers();
 	
+	void ClearBackground() const { glClearColor(0.3f, 0.3f, 0.3f, 1.0f); glClear(GL_COLOR_BUFFER_BIT); }
 };

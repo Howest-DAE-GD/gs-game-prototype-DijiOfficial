@@ -181,6 +181,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullets.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionSingleton.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -195,6 +196,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="IObserver.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAttacks.cpp" />
@@ -206,6 +208,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullets.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionSingleton.h" />
     <ClInclude Include="Command.h" />
@@ -221,6 +224,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAttacks.h" />

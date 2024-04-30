@@ -102,6 +102,12 @@
     <ClCompile Include="HealthBar.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -175,6 +181,12 @@
     </ClInclude>
     <ClInclude Include="Health.h">
       <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GameFiles\GameObjectds</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>EngineFiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

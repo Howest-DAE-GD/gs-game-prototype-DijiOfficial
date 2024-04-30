@@ -49,6 +49,16 @@ struct Color4f
 	Color4f( );
 	explicit Color4f( float r, float g, float b, float a );
 	
+	bool operator==(const Color4f& rhs) const
+	{
+		return r == rhs.r && g == rhs.g && b == rhs.b && a == rhs.a;
+	}
+
+	bool operator!=(const Color4f& rhs) const
+	{
+		return !(*this == rhs);
+	}
+
 	float r;
 	float g;
 	float b;
