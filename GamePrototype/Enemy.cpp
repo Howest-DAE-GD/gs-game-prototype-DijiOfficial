@@ -12,7 +12,6 @@ Goblin::Goblin(Scene* scene, Player* player, const Point2f& pos)
 	m_CollisionSingleton.AddCollider(this, m_Shape);
 };
 
-
 void Goblin::Update()
 {
 	if (m_State == EnemyState::DEAD)
@@ -35,6 +34,8 @@ void Goblin::Update()
 	m_Shape.bottom += direction.y * m_Speed * deltaTime;
 
 	m_CollisionSingleton.UpdateCollider(this, m_Shape);
+	m_CollisionSingleton.HitPlayerType(m_Shape, m_Damage);
+
 }
 
 void Goblin::Render() const
@@ -49,5 +50,5 @@ void Goblin::Render() const
 void Goblin::Hit()
 {
 	m_State = EnemyState::DEAD;
-	m_CollisionSingleton.RemoveCollider(this);
+	m_CollisionSingleton.RemoveCollider(this); //put this in the destructor (of enemy even?)
 }

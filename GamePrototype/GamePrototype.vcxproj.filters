@@ -28,6 +28,9 @@
     <Filter Include="EngineFiles\ResourceManager">
       <UniqueIdentifier>{d584e6f4-73c1-4639-be1f-2646b6a390a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EngineFiles\Observers">
+      <UniqueIdentifier>{a5396408-fd62-463a-b1d3-c0c52b632a97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +89,18 @@
     </ClCompile>
     <ClCompile Include="CollisionSingleton.cpp">
       <Filter>EngineFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="IObserver.cpp">
+      <Filter>EngineFiles\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>EngineFiles\Observers</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>GameFiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +163,18 @@
     </ClInclude>
     <ClInclude Include="CollisionSingleton.h">
       <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>EngineFiles\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>EngineFiles\Observers</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>GameFiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

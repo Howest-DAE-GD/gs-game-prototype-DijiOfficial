@@ -31,5 +31,7 @@ private:
 
 	void LoadMap();
 	void PaintMap() const;
+	void ProcessVertices(std::vector<std::vector<Point2f>>& verticesVec, int start, int end);
+	unsigned int GetThreadCount() const;
 };
 

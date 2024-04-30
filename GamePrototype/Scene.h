@@ -6,7 +6,7 @@
 class Scene final
 {
 public:
-    Scene(Rectf viewport);
+    Scene() = default;
     ~Scene() = default;
 
     Scene(const Scene& other) = delete;

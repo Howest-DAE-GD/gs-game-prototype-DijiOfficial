@@ -5,20 +5,29 @@
 #include "Scene.h"
 #include "ResourceManager.h"
 
+#include <thread>
+
+#include <iostream>
 Level::Level(Scene* scene)
 	: GameObject{ scene }
 {
 	m_BmpTileTexturePtr = ResourceManager::GetInstance().LoadTexture("Images/Tiles.bmp");
 	SVGParser::GetVerticesFromSvgFile("test.svg", m_VerticesVec);
-	for (int j = 0; j < m_VerticesVec.size(); j++)
+	
+	const unsigned int numThreads = GetThreadCount();
+	const int elementsPerThread = m_VerticesVec.size() / numThreads;
+	std::vector<std::jthread> threads;
+
+	for (int i = 0; i < numThreads; i++)
 	{
-		for (int i = 0; i < m_VerticesVec[j].size(); i++)
-		{
-			m_VerticesVec[j][i].x /= 25;
-			m_VerticesVec[j][i].x *= 32;
-			m_VerticesVec[j][i].y /= 25;
-			m_VerticesVec[j][i].y *= 32;
-		}
+		int start = i * elementsPerThread;
+		int end = (i == numThreads - 1) ? m_VerticesVec.size() : (i + 1) * elementsPerThread;
+		threads.push_back(std::jthread(
+			[this, start, end]() 
+			{ 
+				ProcessVertices(std::ref(m_VerticesVec), start, end); 
+			}
+		));
 	}
 
 	LoadMap();
@@ -76,7 +85,6 @@ void Level::LoadMap()
 	for (int i = 0; i < m_WorldWidth * m_WorldHeight; ++i)
 		m_TilesPtrVec.emplace_back(new Tiles());
 
-	//Assign to every tile its neighbors (not necessary but it makes the code clearer in the algorithm)
 	for (int it = 0; it < m_TilesPtrVec.size(); ++it)
 	{
 		const int posY = static_cast<int>(it / m_WorldWidth);
@@ -166,4 +174,26 @@ void Level::PaintMap() const
 			}
 		}
 	}
+}
+
+void Level::ProcessVertices(std::vector<std::vector<Point2f>>& verticesVec, int start, int end)
+{
+	for (int j = start; j < end; j++)
+	{
+		for (int i = 0; i < verticesVec[j].size(); i++)
+		{
+			verticesVec[j][i].x /= 25;
+			verticesVec[j][i].x *= 32;
+			verticesVec[j][i].y /= 25;
+			verticesVec[j][i].y *= 32;
+		}
+	}
+}
+
+unsigned int Level::GetThreadCount() const
+{
+	unsigned int numThreads = std::thread::hardware_concurrency();
+	if (numThreads & 1) numThreads -= 1;
+	if (numThreads > 16) numThreads = 16;
+	return numThreads;
 }

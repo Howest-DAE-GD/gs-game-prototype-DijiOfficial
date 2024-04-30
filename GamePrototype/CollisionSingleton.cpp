@@ -3,11 +3,12 @@
 #include "CollisionSingleton.h"
 #include "GameObject.h"
 #include "Enemy.h"
+#include "Player.h"
 
-//void CollisionSingleton::AddPlayer(Player* player)
-//{
-//	m_PlayerPtr = player;
-//}
+void CollisionSingleton::AddPlayer(Player* player)
+{
+	m_PlayerPtr = player;
+}
 
 void CollisionSingleton::AddCollider(GameObject* object, const Rectf& collider)
 {
@@ -35,8 +36,8 @@ void CollisionSingleton::IsColliding(GameObject* object)
 		{
 			if (utils::IsOverlapping(m_Colliders[object], pair.second))
 			{
-				//Bullets* bullet = dynamic_cast<Bullets*>(pair.first);
-				//if (bullet)
+				//Enemy* enemy = dynamic_cast<Enemy*>(pair.first);
+				//if (enemy)
 				//{
 				//	//delete object
 				//	//object
@@ -69,6 +70,21 @@ bool CollisionSingleton::HitEnemyType(const Rectf& shape)
 				hit = true;
 			}
 		}
+	}
+
+	return hit;
+}
+
+bool CollisionSingleton::HitPlayerType(const Rectf& shape, const int damage)
+{
+	if (m_PlayerPtr->IsInvincible())
+		return false;
+
+	bool hit = false;
+
+	if (utils::IsOverlapping(shape, m_PlayerPtr->GetShape()))
+	{
+		m_PlayerPtr->DealDamage(damage);
 	}
 
 	return hit;

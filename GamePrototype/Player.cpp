@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "ResourceManager.h"
 #include "Scene.h"
+#include "TimeSingleton.h"
 
 Player::Player(Scene* scene)
 	: GameObject{ scene }
@@ -10,11 +11,24 @@ Player::Player(Scene* scene)
 	//m_pSpritesTexture = ResourceManager::GetInstance().LoadTexture("Images/AvatarSheet.png");
 	m_LevelPtr = GetOwner()->GetGameObject<Level>();
 	m_BasicAttack = std::make_unique<ShootAttack>(m_LevelPtr);
+	m_Health = std::make_unique<Health>(400);
 }
 
 void Player::Update()
 {
 	m_BasicAttack->Update();
+
+	//maybe it's own function or class?
+	const float dt = TimeSingleton::GetInstance().GetDeltaTime();
+	if (m_IsInvincible)
+	{
+		m_Iframes += dt;
+		if (m_Iframes >= 0.5f)
+		{
+			m_IsInvincible = false;
+			m_Iframes = 0.0f;
+		}
+	}
 }
 
 void Player::Render() const
@@ -82,4 +96,12 @@ void Player::Attack()
 	projectilePosition.y = centerY + radius * sin(angle);
 
 	m_BasicAttack->Attack(projectilePosition, m_Angle);
+}
+
+void Player::DealDamage(const int damage)
+{
+	m_Health->DealDamage(damage);
+	// maybe get type of damage so you can still get hit by projectiles?
+	m_IsInvincible = true;
+	//get health if 0 die or some
 }

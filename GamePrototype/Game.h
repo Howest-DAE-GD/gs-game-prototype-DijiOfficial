@@ -21,10 +21,16 @@ public:
 
 private:
 	std::unique_ptr<Scene> m_Scene;
+	std::unique_ptr<Scene> m_Hud;
 
 	int frameCount = 0;
 	float totalElapsedTime = 0.0f;
+	
 	// FUNCTIONS
 	void Initialize();
-	void ClearBackground( ) const;
+	void CreateScene();
+	void CreateHud();
+	void CommandInit() const;
+	void CreateObservers();
+	
 };

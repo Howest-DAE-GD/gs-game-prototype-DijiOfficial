@@ -59,5 +59,5 @@ public:
 	void Hit() override;
 private:
 	Rectf m_Shape;
-
+	int m_Damage = 30;
 };

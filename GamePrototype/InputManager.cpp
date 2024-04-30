@@ -81,7 +81,6 @@ void InputManager::ProcessMouseMotionEvent(const SDL_MouseMotionEvent& e)
 
 void InputManager::ProcessMouseUpEvent(const SDL_MouseButtonEvent& e)
 {
-	std::cout << "Mouse button pressed\n";
 	for (const auto& pair : m_CommandsUPtrMap)
 	{
 		if (pair.first != KeyState::MOUSEUP)

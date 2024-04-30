@@ -32,6 +32,6 @@ void ShootAttack::Render() const
 
 void ShootAttack::Attack(const Point2f& pos, float angle)
 {
-	//need object pooling here
+	//need object pooling here but i wont dont play too long it will be fine
 	m_Bullets.push_back(std::make_unique<Bullets>(pos, angle));
 }

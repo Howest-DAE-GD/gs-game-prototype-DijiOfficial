@@ -189,7 +189,10 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameActorCommands.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Health.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IObserver.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
@@ -197,6 +200,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="PlayerAttacks.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Tiles.cpp" />
     <ClCompile Include="WFC.cpp" />
   </ItemGroup>
@@ -212,13 +216,17 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameActorCommands.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Health.h" />
+    <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IObserver.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAttacks.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="Tiles.h" />
     <ClInclude Include="WFC.h" />
   </ItemGroup>

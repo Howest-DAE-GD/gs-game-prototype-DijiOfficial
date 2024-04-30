@@ -2,9 +2,11 @@
 #include "pch.h"
 #include "GameObject.h"
 #include "PlayerAttacks.h"
+#include "Health.h"
 
 class Texture;
 class Level;
+
 class Player final : public GameObject
 {
 public:
@@ -23,18 +25,25 @@ public:
 	Rectf GetShape() const { return m_Shape; }
 	void SetShape(Rectf& shape) { m_Shape = shape; }
 	Point2f GetPosition() const { return Point2f{ m_Shape.left + m_Shape.width * 0.5f, m_Shape.bottom + m_Shape.height * 0.5f }; }
-
-	void SetAngle(float angle) { m_Angle = angle; }
-	bool IsColliding(const Rectf& actorShape) const;
 	Point2f GetRelativeCenter() const;
+	void SetAngle(float angle) { m_Angle = angle; }
+	bool IsInvincible() const { return m_IsInvincible; }
+	int GetHealth() const { return m_Health->GetHealth(); }
+	Health* GetHealthObject() const { return m_Health.get(); }
+
+	bool IsColliding(const Rectf& actorShape) const;
 
 	void Attack();
+	void DealDamage(const int damage);
 private:
+	std::unique_ptr<ShootAttack> m_BasicAttack;
 	Rectf m_Shape;
 	//Texture* m_pSpritesTexture;
 	Level* m_LevelPtr;
+	std::unique_ptr<Health> m_Health;
+	
 	float m_Angle = 0.f;
-
-	std::unique_ptr<ShootAttack> m_BasicAttack;
+	bool m_IsInvincible = false;
+	float m_Iframes = 0.0f;
 };
 
