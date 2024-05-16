@@ -20,3 +20,15 @@ void PlayerHealthBar::OnNotify(MessageTypes message, Subject* subject)
 		m_CurrentHealth = health->GetHealth();
 	}
 }
+
+void BossHealthBar::OnNotify(MessageTypes message, Subject* subject)
+{
+	if (message == MessageTypes::HEALTH_CHANGE)
+	{
+		Health* health = dynamic_cast<Health*>(subject);
+		if (not health)
+			return;
+
+		m_CurrentHealth = health->GetHealth();
+	}
+};

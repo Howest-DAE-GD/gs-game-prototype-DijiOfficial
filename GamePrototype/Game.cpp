@@ -10,10 +10,10 @@
 #include "Camera.h"
 #include "EnemyManager.h"
 #include "MainMenu.h"
+#include "BossManager.h"
 
 //temp
 #include <iostream>
-#include "EnemyManager.h"
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
 {
@@ -29,7 +29,6 @@ void Game::Initialize( )
 	CreateHud();
 
 	//temp code
-	m_Scene->GetGameObject<EnemyManager>()->AddEnemy(m_Scene.get(), m_Scene->GetGameObject<Player>(), Point2f{ 5300.0f, 1300.0f });
 
 	CommandInit();
 	CreateObservers();
@@ -45,7 +44,7 @@ void Game::CreateScene()
 
 	m_Scene->AddGameObject<Level>();
 	m_Scene->AddGameObject<Player>();
-	m_Scene->AddGameObject<EnemyManager>();
+	m_Scene->AddGameObject<EnemyManager>(m_Scene->GetGameObject<Player>());
 
 	CollisionSingleton::GetInstance().AddPlayer(m_Scene->GetGameObject<Player>());
 }
@@ -54,6 +53,15 @@ void Game::CreateHud()
 {
 	m_Hud = std::make_unique<Scene>();
 	m_Hud->AddGameObject<PlayerHealthBar>(Rectf{ 20.0f, 20.0f, 300.0f, 40.0f }, Color4f{ 0.0f, 1.0f, 0.0f, 1.0f }, m_Scene->GetGameObject<Player>()->GetHealth());
+	m_Hud->GetGameObject<PlayerHealthBar>()->SetActive();
+
+	auto& viewport = GetViewPort();
+	Rectf bossHealthBar{ viewport.width * 0.25f, viewport.height - 80.0f, viewport.width * 0.5f, 40.0f };
+	m_Hud->AddGameObject<BossHealthBar>(bossHealthBar, Color4f{ 1.0f, 0.0f, 0.0f, 1.0f }, m_Scene->GetGameObject<Player>()->GetHealth());
+
+	//oops
+	m_Scene->AddGameObject<BossManager>(m_Scene->GetGameObject<Player>(), m_Hud->GetGameObject<BossHealthBar>());
+	m_BossManagerPtr = m_Scene->GetGameObject<BossManager>();
 }
 
 void Game::CreateMenus()
@@ -86,7 +94,7 @@ void Game::CommandInit() const
 void Game::CreateObservers()
 {
 	auto player = m_Scene->GetGameObject<Player>();
-
+	
 	player->GetHealthObject()->AddObserver(MessageTypes::HEALTH_CHANGE, m_Hud->GetGameObject<PlayerHealthBar>());
 }
 #pragma endregion
@@ -154,8 +162,13 @@ void Game::Update( float elapsedSec )
 	case GameState::LEVEL:
 		m_Scene->Update();
 		m_Hud->Update();
+
+		if (m_BossManagerPtr->IsFinalBossDead())
+			m_GameState = GameState::WIN;
 		break;
 	case GameState::PAUSE:
+		break;
+	case GameState::WIN:
 		break;
 	default:
 		break;

@@ -14,7 +14,8 @@ public:
 	void Update() override;
 	void Render() const override;
 	
-
+	void SetActive() { m_IsActive = true; };
+	void SetInactive() { m_IsActive = false; };
 protected:
 	int m_CurrentHealth;
 
@@ -24,5 +25,6 @@ private:
 	Color4f m_Color;
 	const int m_TotalHealth;
 	int m_LastFrameHealth;
+	bool m_IsActive = false;
 
 };

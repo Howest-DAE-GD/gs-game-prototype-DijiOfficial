@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "Boss.h"
 
 void CollisionSingleton::AddPlayer(Player* player)
 {
@@ -69,6 +70,13 @@ bool CollisionSingleton::HitEnemyType(const Rectf& shape)
 				enemy->Hit();//can add damage or more info to this call later
 				hit = true;
 			}
+
+			Boss* boss = dynamic_cast<Boss*>(pair.first);
+			if (boss)
+			{
+				boss->Hit(25); //currently hard coded get it from the player
+				hit = true;
+			}
 		}
 	}
 
@@ -88,4 +96,34 @@ bool CollisionSingleton::HitPlayerType(const Rectf& shape, const int damage)
 	}
 
 	return hit;
+}
+
+unsigned int CollisionSingleton::PlayerHitTrigger(std::vector<std::vector<Point2f>>& collision)
+{
+	const auto& playerShape = m_PlayerPtr->GetShape();
+	unsigned int idx = 0;
+
+	for (const auto& collisionBox : collision)
+	{
+		const Point2f bottomLeft(playerShape.left, playerShape.bottom);
+		const Point2f topLeft(playerShape.left, playerShape.bottom + playerShape.height);
+
+		utils::HitInfo hitInfo;
+		if (utils::Raycast(collisionBox, bottomLeft, topLeft, hitInfo))
+			return idx;
+
+		const Point2f topRight(playerShape.left + playerShape.width, playerShape.bottom + playerShape.height);
+		if (utils::Raycast(collisionBox, topLeft, topRight, hitInfo))
+			return idx;
+
+
+		const Point2f bottomRight(playerShape.left + playerShape.width, playerShape.bottom);
+		if (utils::Raycast(collisionBox, topRight, bottomRight, hitInfo))
+			return idx;
+
+		(void)hitInfo;
+		++idx;
+	}
+	return -1;
+	
 }

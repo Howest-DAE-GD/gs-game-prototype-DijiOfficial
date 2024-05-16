@@ -34,3 +34,16 @@ public:
 
 	void OnNotify(MessageTypes message, Subject* subject) override;
 };
+
+class BossHealthBar final : public HealthBar, public IObserver
+{
+public:
+	//BossHealthBar(Scene* scene, const Rectf& shape, const Color4f& color, int health);
+	using HealthBar::HealthBar;
+	virtual ~BossHealthBar() = default;
+
+	void OnNotify(MessageTypes message, Subject* subject) override;
+
+private:
+	bool m_IsActive = false;
+};

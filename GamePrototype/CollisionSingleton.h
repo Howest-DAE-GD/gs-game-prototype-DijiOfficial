@@ -1,7 +1,8 @@
 #pragma once
 #include "Singleton.h"
-#include <map>
 #include "structs.h"
+#include <map>
+#include <vector>
 
 class GameObject;
 class Player;
@@ -18,6 +19,8 @@ public:
 	void IsColliding(GameObject* object);
 	bool HitEnemyType(const Rectf& shape);
 	bool HitPlayerType(const Rectf& shape, const int damage);
+
+	unsigned int PlayerHitTrigger(std::vector<std::vector<Point2f>>& collision);
 
 private:
 	std::map<GameObject*, Rectf> m_Colliders;

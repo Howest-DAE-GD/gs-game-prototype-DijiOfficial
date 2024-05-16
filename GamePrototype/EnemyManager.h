@@ -10,7 +10,7 @@ class Scene;
 class EnemyManager final : public GameObject
 {
 public:
-	EnemyManager(Scene* scene);
+	EnemyManager(Scene* scene, Player* player);
 	~EnemyManager() override = default;
 
 	EnemyManager(const EnemyManager& other) = delete;
@@ -23,8 +23,10 @@ public:
 
 	void AddEnemy(Player* player, const Point2f& pos);
 	void AddEnemy(Scene* scene, Player* player, const Point2f& pos);
-
+	void ParseEnemyData(std::vector<std::vector<Point2f>> enemies);
 private:
 	std::vector<std::unique_ptr<Enemy>> m_Enemies;
+	std::vector<std::vector<Point2f>> m_EnemiesPos;
+	Player* m_Player;
 };
 

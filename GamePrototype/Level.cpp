@@ -13,22 +13,7 @@ Level::Level(Scene* scene)
 {
 	m_BmpTileTexturePtr = ResourceManager::GetInstance().LoadTexture("Images/Tiles.bmp");
 	SVGParser::GetVerticesFromSvgFile("test.svg", m_VerticesVec);
-	
-	const unsigned int numThreads = GetThreadCount();
-	const int elementsPerThread = m_VerticesVec.size() / numThreads;
-	std::vector<std::jthread> threads;
-
-	for (int i = 0; i < numThreads; i++)
-	{
-		int start = i * elementsPerThread;
-		int end = (i == numThreads - 1) ? m_VerticesVec.size() : (i + 1) * elementsPerThread;
-		threads.push_back(std::jthread(
-			[this, start, end]() 
-			{ 
-				ProcessVertices(std::ref(m_VerticesVec), start, end); 
-			}
-		));
-	}
+	SVGParser::ParseSVGData(m_VerticesVec);
 
 	LoadMap();
 }
@@ -174,26 +159,4 @@ void Level::PaintMap() const
 			}
 		}
 	}
-}
-
-void Level::ProcessVertices(std::vector<std::vector<Point2f>>& verticesVec, int start, int end)
-{
-	for (int j = start; j < end; j++)
-	{
-		for (int i = 0; i < verticesVec[j].size(); i++)
-		{
-			verticesVec[j][i].x /= 25;
-			verticesVec[j][i].x *= 32;
-			verticesVec[j][i].y /= 25;
-			verticesVec[j][i].y *= 32;
-		}
-	}
-}
-
-unsigned int Level::GetThreadCount() const
-{
-	unsigned int numThreads = std::thread::hardware_concurrency();
-	if (numThreads & 1) numThreads -= 1;
-	if (numThreads > 16) numThreads = 16;
-	return numThreads;
 }

@@ -15,6 +15,9 @@ HealthBar::HealthBar(Scene* scene, const Rectf& shape, const Color4f& color, int
 
 void HealthBar::Update()
 {
+	if (not m_IsActive)
+		return;
+
 	if (m_CurrentHealth == m_LastFrameHealth)
 		return;
 
@@ -24,6 +27,9 @@ void HealthBar::Update()
 
 void HealthBar::Render() const
 {
+	if (not m_IsActive)
+		return;
+
 	utils::SetColor(m_Color);
 	utils::FillRect(m_HealthBar);
 

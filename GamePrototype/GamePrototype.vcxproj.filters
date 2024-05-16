@@ -108,6 +108,12 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="BossManager.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -187,6 +193,12 @@
     </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BossManager.h">
+      <Filter>GameFiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

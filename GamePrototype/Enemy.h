@@ -12,7 +12,13 @@ enum class EnemyState
 	HIT,
 	DYING,
 	DEAD,
+};
 
+enum class EnemyType
+{
+	GOBLIN = 0,
+	ORC,
+	TROLL,
 };
 
 class Enemy : public GameObject

@@ -63,6 +63,42 @@ bool SVGParser::GetVerticesFromSvgFile( const std::string& filePath, std::vector
 	return true;
 }
 
+void SVGParser::ParseSVGData(std::vector<std::vector<Point2f>>& vertices)
+{
+	unsigned int numThreads = std::thread::hardware_concurrency();
+	if (numThreads & 1) numThreads -= 1;
+	if (numThreads > 16) numThreads = 16;
+
+	const int elementsPerThread = vertices.size() / numThreads;
+	std::vector<std::jthread> threads;
+
+	for (int i = 0; i < numThreads; i++)
+	{
+		int start = i * elementsPerThread;
+		int end = (i == numThreads - 1) ? vertices.size() : (i + 1) * elementsPerThread;
+		threads.push_back(std::jthread(
+			[&vertices, start, end]()
+			{
+				ProcessVertices(vertices, start, end);
+			}
+		));
+	}
+}
+
+void SVGParser::ProcessVertices(std::vector<std::vector<Point2f>>& verticesVec, int start, int end)
+{
+	for (int j = start; j < end; j++)
+	{
+		for (int i = 0; i < verticesVec[j].size(); i++)
+		{
+			verticesVec[j][i].x /= 25;
+			verticesVec[j][i].x *= 32;
+			verticesVec[j][i].y /= 25;
+			verticesVec[j][i].y *= 32;
+		}
+	}
+}
+
 void SVGParser::RemoveSpaces( std::string& svgString )
 {
 	// Remove spaces before and = chars

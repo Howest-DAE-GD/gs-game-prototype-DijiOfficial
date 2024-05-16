@@ -8,8 +8,10 @@ class SVGParser final
 public:
 	// The only function to be called
 	static bool GetVerticesFromSvgFile(const std::string& filePath, std::vector<std::vector<Point2f>> &vertices);
-
+	static void ParseSVGData(std::vector<std::vector<Point2f>> &vertices);
 private:
+	static void ProcessVertices(std::vector<std::vector<Point2f>>& verticesVec, int start, int end);
+
 	//static bool LoadGeometryFromSvgStream(unsigned char* pBlob, int blobSize, std::vector<Point2f> &vertices);
 	static void RemoveSpaces( std::string& svgString );
 	static bool GetVerticesFromSvgString(std::string& svgText, std::vector<std::vector<Point2f>> &vertices);
