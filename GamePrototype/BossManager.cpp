@@ -114,4 +114,5 @@ void BossManager::Init()
 	SVGParser::ParseSVGData(m_BossTrigers);
 
 	m_Bosses.push_back(std::make_unique<FinalBoss>(scene, m_PlayerPtr));
+	m_Bosses.push_back(std::make_unique<FirstBoss>(scene, m_PlayerPtr));
 }

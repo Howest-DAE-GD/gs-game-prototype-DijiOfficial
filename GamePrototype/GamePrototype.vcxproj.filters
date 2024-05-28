@@ -114,6 +114,18 @@
     <ClCompile Include="BossManager.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="DoorManager.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -199,6 +211,18 @@
     </ClInclude>
     <ClInclude Include="BossManager.h">
       <Filter>GameFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="DoorManager.h">
+      <Filter>EngineFiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

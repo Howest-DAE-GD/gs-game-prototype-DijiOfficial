@@ -13,9 +13,11 @@ Player::Player(Scene* scene)
 	m_BasicAttack = std::make_unique<ShootAttack>(m_LevelPtr);
 	m_Health = std::make_unique<Health>(400);
 }
-
+#include <iostream>
 void Player::Update()
 {
+
+	//std::cout << m_Shape.left << " " << m_Shape.bottom << std::endl;
 	m_BasicAttack->Update();
 
 	//maybe it's own function or class?

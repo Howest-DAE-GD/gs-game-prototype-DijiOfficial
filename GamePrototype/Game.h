@@ -4,22 +4,6 @@
 
 class BossManager;
 
-enum class GameState
-{
-	INVALID,
-	INTRO,
-	MAIN_MENU,
-	OPTIONS,
-	SETTINGS,
-	CONTROLS,
-	MENU,
-	UPGRADES,
-	CLASS_SELECTION,
-	LEVEL,
-	PAUSE,
-	WIN,
-};
-
 class Game final : public BaseGame
 {
 public:
@@ -38,14 +22,7 @@ public:
 	void Draw( ) const override;
 
 private:
-	std::unique_ptr<Scene> m_Scene;
-	std::unique_ptr<Scene> m_Hud;
-	std::unique_ptr<Scene> m_MainMenu;
-	std::unique_ptr<Scene> m_Controlls;
-	//std::unique_ptr<Scene> m_EndSreen;
-
 	BossManager* m_BossManagerPtr = nullptr;
-	GameState m_GameState = GameState::MAIN_MENU;
 	int frameCount = 0;
 	float totalElapsedTime = 0.0f;
 	

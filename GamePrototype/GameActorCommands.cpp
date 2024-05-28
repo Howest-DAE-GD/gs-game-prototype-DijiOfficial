@@ -91,3 +91,15 @@ void Attack::Execute()
 {
 	m_PlayerPtr->Attack();
 }
+
+Debug::Debug(GameObject* actor)
+	: GameActorCommands{ actor }
+{
+	m_PlayerPtr = dynamic_cast<Player*>(GetGameActor());
+}
+#include <iostream>
+void Debug::Execute()
+{
+	const auto& shape = m_PlayerPtr->GetPosition();
+	std::cout << shape.x << ", " << shape.y << "\n";
+}

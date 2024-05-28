@@ -187,6 +187,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionSingleton.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DoorManager.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -196,6 +197,8 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IObserver.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -204,6 +207,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="PlayerAttacks.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Tiles.cpp" />
     <ClCompile Include="WFC.cpp" />
@@ -217,6 +221,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="CollisionSingleton.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DoorManager.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnumClasses.h" />
@@ -227,6 +232,8 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IObserver.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="pch.h" />
@@ -234,6 +241,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="PlayerAttacks.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Tiles.h" />
     <ClInclude Include="WFC.h" />

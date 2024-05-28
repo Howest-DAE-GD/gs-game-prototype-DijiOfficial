@@ -56,3 +56,15 @@ private:
 	Player* m_PlayerPtr;
 };
 
+class Debug final : public GameActorCommands
+{
+public:
+	Debug(GameObject* actor);
+	~Debug() override = default;
+
+	void Execute() override;
+
+private:
+	Player* m_PlayerPtr;
+};
+

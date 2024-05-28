@@ -1,4 +1,5 @@
 #pragma once
+//#include "Singleton.h"
 #include "Boss.h"
 #include <memory>
 

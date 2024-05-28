@@ -16,3 +16,13 @@ void Scene::Render() const
 		gameObject->Render();
 	}
 }
+
+void Scene::Remove(GameObject* object)
+{
+	std::erase_if(m_GameObjects,
+		[object](const auto& objUPtr)
+		{
+			return objUPtr.get() == object;
+		}
+	);
+}

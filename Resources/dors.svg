@@ -7,7 +7,7 @@
    width="8000"
    height="4500"
    viewBox="0 0 8000 4500"
-   sodipodi:docname="test2.svg"
+   sodipodi:docname="dors.svg"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.4277996"
-     inkscape:cx="4444.8382"
-     inkscape:cy="2699.8623"
+     inkscape:zoom="0.3025"
+     inkscape:cx="3889.2562"
+     inkscape:cy="2211.5703"
      inkscape:window-width="2560"
      inkscape:window-height="1377"
      inkscape:window-x="1912"
@@ -47,6 +47,6 @@
   <path
      id="rect410"
      style="opacity:0.33"
-     d="m 3665.2894,3385.1238 25.6198,-13.2231 38.0165,-2.4793 47.9339,2.4794 42.2521,-2.6344 38.9462,9.7625 10.0207,30.4235 171.1777,420.5062 -31.3017,14.721 -24.69,13.0683 -576.7562,-286.1054 1.7561,-28.2542 8.3678,-15.8574 6.7149,-18.3368 268.6985,-356.3533 h 25.9986 25.9986 25.9986 l -110.6406,259.7107 z"
-     sodipodi:nodetypes="cccccccccccccccccccc" />
+     d="m 1520,3000 v -230 h 50 v 230 z m 230.3639,-927.3076 v -230 h 50 v 230 z m 2245.2102,479.1963 V 2258.775 h 50 v 293.1137 z M 5844.265,2203.1485 v -293.1137 h 50 v 293.1137 z m 210.0739,508.6976 v -81.5435 h 304.5455 v 81.5435 z M 4246.0744,3829.2015 v -293.1137 h 50 v 293.1137 z m -629.7521,-456.1983 v -81.5435 h 304.5455 v 81.5435 z"
+     sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccc" />
 </svg>

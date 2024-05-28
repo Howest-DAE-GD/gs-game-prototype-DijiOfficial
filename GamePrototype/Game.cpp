@@ -1,5 +1,5 @@
+#pragma once
 #include "pch.h"
-
 #include "Game.h"
 #include "InputManager.h"
 #include "IObserver.h"
@@ -9,9 +9,10 @@
 #include "Player.h"
 #include "Camera.h"
 #include "EnemyManager.h"
-#include "MainMenu.h"
 #include "BossManager.h"
 
+#include "SceneManager.h"
+#include "ItemManager.h"
 //temp
 #include <iostream>
 Game::Game( const Window& window ) 
@@ -19,6 +20,9 @@ Game::Game( const Window& window )
 {
 	InputManager::GetInstance().Init(window);
 	Initialize();
+
+	ItemManager::GetInstance().Init(SceneManager::GetInstance().GetScene("Level"), SceneManager::GetInstance().GetScene("Level")->GetGameObject<Player>());
+	//BossManager::GetInstance().InitBoss(SceneManager::GetInstance().GetScene("Level")->GetGameObject<Player>(), SceneManager::GetInstance().GetScene("Hud")->GetGameObject<BossHealthBar>());
 }
 
 #pragma region Initialization
@@ -37,46 +41,49 @@ void Game::Initialize( )
 void Game::CreateScene()
 {
 	auto& viewport = GetViewPort();
-	m_Scene = std::make_unique<Scene>();
+	const auto& scene = SceneManager::GetInstance().CreateScene("Level");
 
 	//make sure camera is first
-	m_Scene->AddGameObject<Camera>(viewport.width, viewport.height);
+	scene->AddGameObject<Camera>(viewport.width, viewport.height);
 
-	m_Scene->AddGameObject<Level>();
-	m_Scene->AddGameObject<Player>();
-	m_Scene->AddGameObject<EnemyManager>(m_Scene->GetGameObject<Player>());
+	scene->AddGameObject<Level>();
+	scene->AddGameObject<Player>();
+	scene->AddGameObject<EnemyManager>(scene->GetGameObject<Player>());
 
-	CollisionSingleton::GetInstance().AddPlayer(m_Scene->GetGameObject<Player>());
+	CollisionSingleton::GetInstance().AddPlayer(scene->GetGameObject<Player>());
 }
 
 void Game::CreateHud()
 {
-	m_Hud = std::make_unique<Scene>();
-	m_Hud->AddGameObject<PlayerHealthBar>(Rectf{ 20.0f, 20.0f, 300.0f, 40.0f }, Color4f{ 0.0f, 1.0f, 0.0f, 1.0f }, m_Scene->GetGameObject<Player>()->GetHealth());
-	m_Hud->GetGameObject<PlayerHealthBar>()->SetActive();
+	const auto& scene = SceneManager::GetInstance().GetScene("Level");
+
+	const auto& hud = SceneManager::GetInstance().CreateScene("Hud");
+	hud->AddGameObject<PlayerHealthBar>(Rectf{ 20.0f, 20.0f, 300.0f, 40.0f }, Color4f{ 0.0f, 1.0f, 0.0f, 1.0f }, scene->GetGameObject<Player>()->GetHealth());
+	hud->GetGameObject<PlayerHealthBar>()->SetActive();
 
 	auto& viewport = GetViewPort();
 	Rectf bossHealthBar{ viewport.width * 0.25f, viewport.height - 80.0f, viewport.width * 0.5f, 40.0f };
-	m_Hud->AddGameObject<BossHealthBar>(bossHealthBar, Color4f{ 1.0f, 0.0f, 0.0f, 1.0f }, m_Scene->GetGameObject<Player>()->GetHealth());
+	hud->AddGameObject<BossHealthBar>(bossHealthBar, Color4f{ 1.0f, 0.0f, 0.0f, 1.0f }, scene->GetGameObject<Player>()->GetHealth());
 
 	//oops
-	m_Scene->AddGameObject<BossManager>(m_Scene->GetGameObject<Player>(), m_Hud->GetGameObject<BossHealthBar>());
-	m_BossManagerPtr = m_Scene->GetGameObject<BossManager>();
+	scene->AddGameObject<BossManager>(scene->GetGameObject<Player>(), hud->GetGameObject<BossHealthBar>());
+	//m_BossManagerPtr = scene->GetGameObject<BossManager>();
 }
 
 void Game::CreateMenus()
 {
 	auto& viewport = GetViewPort();
-	m_MainMenu = std::make_unique<Scene>();
-	m_Controlls = std::make_unique<Scene>();
+	const auto& menu = SceneManager::GetInstance().CreateScene("Menu");
+	const auto& controls = SceneManager::GetInstance().CreateScene("Controls");
+	//m_Controlls = std::make_unique<Scene>();
 
-	m_MainMenu->AddGameObject<MainMenu>(Point2f{ viewport.width, viewport.height });
+	menu->AddGameObject<MainMenu>(Point2f{ viewport.width, viewport.height });
 }
 
 void Game::CommandInit() const
 {
 	auto& input = InputManager::GetInstance();
-	auto player = m_Scene->GetGameObject<Player>();
+	auto player = SceneManager::GetInstance().GetScene("Level")->GetGameObject<Player>();
 
 	input.BindCommand<Move>(PlayerIdx::KEYBOARD, KeyState::HELD, SDL_SCANCODE_W, player, Movement::Up);
 	input.BindCommand<Move>(PlayerIdx::KEYBOARD, KeyState::HELD, SDL_SCANCODE_A, player, Movement::Left);
@@ -84,6 +91,7 @@ void Game::CommandInit() const
 	input.BindCommand<Move>(PlayerIdx::KEYBOARD, KeyState::HELD, SDL_SCANCODE_D, player, Movement::Right);
 	input.BindCommand<Rotate>(PlayerIdx::KEYBOARD, KeyState::MOUSEMOTION, SDL_SCANCODE_UNKNOWN, player);
 	input.BindCommand<Attack>(PlayerIdx::KEYBOARD, KeyState::MOUSEUP, SDL_SCANCODE_UNKNOWN, player);
+	input.BindCommand<Debug>(PlayerIdx::KEYBOARD, KeyState::HELD, SDL_SCANCODE_O, player);
 
 	input.BindCommand<Move>(PlayerIdx::PLAYER1, KeyState::HELD, Controller::Button::DPadUp, player, Movement::Up);
 	input.BindCommand<Move>(PlayerIdx::PLAYER1, KeyState::HELD, Controller::Button::DPadLeft, player, Movement::Left);
@@ -93,9 +101,9 @@ void Game::CommandInit() const
 
 void Game::CreateObservers()
 {
-	auto player = m_Scene->GetGameObject<Player>();
+	auto player = SceneManager::GetInstance().GetScene("Level")->GetGameObject<Player>();
 	
-	player->GetHealthObject()->AddObserver(MessageTypes::HEALTH_CHANGE, m_Hud->GetGameObject<PlayerHealthBar>());
+	player->GetHealthObject()->AddObserver(MessageTypes::HEALTH_CHANGE, SceneManager::GetInstance().GetScene("Hud")->GetGameObject<PlayerHealthBar>());
 }
 #pragma endregion
 
@@ -111,23 +119,9 @@ void Game::ProcessMouseUpEvent(const SDL_MouseButtonEvent& e)
 
 void Game::Update( float elapsedSec )
 {
-	if (m_GameState == GameState::LEVEL)
-	{
-		auto& input = InputManager::GetInstance();
-		(void) input.ProcessInput();
-	}
-
-	const Uint8* pStates = SDL_GetKeyboardState(nullptr);
-
-	if (pStates[SDL_SCANCODE_RETURN])
-		if (m_GameState == GameState::MAIN_MENU)
-		{
-			int selection = m_MainMenu->GetGameObject<MainMenu>()->GetSelectedButton();
-			if (selection == 0)
-			{
-				m_GameState = GameState::LEVEL;
-			}
-		}
+	SceneManager::GetInstance().Update();
+	ItemManager::GetInstance().IsCollidingWithPlayer();
+	//BossManager::GetInstance().Update();
 
 	{ //ghetto fps counter
 		frameCount++;
@@ -139,79 +133,12 @@ void Game::Update( float elapsedSec )
 			totalElapsedTime = 0.0f;
 		}
 	}
-
-	switch (m_GameState)
-	{
-	case GameState::INTRO:
-		break;
-	case GameState::MAIN_MENU:
-		m_MainMenu->Update();
-		break;
-	case GameState::OPTIONS:
-		break;
-	case GameState::SETTINGS:
-		break;
-	case GameState::CONTROLS:
-		break;
-	case GameState::MENU:
-		break;
-	case GameState::UPGRADES:
-		break;
-	case GameState::CLASS_SELECTION:
-		break;
-	case GameState::LEVEL:
-		m_Scene->Update();
-		m_Hud->Update();
-
-		if (m_BossManagerPtr->IsFinalBossDead())
-			m_GameState = GameState::WIN;
-		break;
-	case GameState::PAUSE:
-		break;
-	case GameState::WIN:
-		break;
-	default:
-		break;
-	}
-
 }
 
 void Game::Draw( ) const
 {
 	ClearBackground();
 
-	switch (m_GameState)
-	{
-	case GameState::INTRO:
-		break;
-	case GameState::MAIN_MENU:
-		m_MainMenu->Render();
-		break;
-	case GameState::OPTIONS:
-		break;
-	case GameState::SETTINGS:
-		break;
-	case GameState::CONTROLS:
-		break;
-	case GameState::MENU:
-		break;
-	case GameState::UPGRADES:
-		break;
-	case GameState::CLASS_SELECTION:
-		break;
-	case GameState::LEVEL:
-		glPushMatrix();
-		{
-			m_Scene->Render();
-		}
-		glPopMatrix();
-
-		m_Hud->Render();
-		break;
-	case GameState::PAUSE:
-		break;
-	default:
-		break;
-	}
-	
+	SceneManager::GetInstance().Render();
+	//BossManager::GetInstance().Render();
 }

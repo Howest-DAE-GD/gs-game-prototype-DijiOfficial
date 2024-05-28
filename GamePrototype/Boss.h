@@ -48,6 +48,7 @@ protected:
 	BossState m_State = BossState::DISABLED;
 	CollisionSingleton& m_CollisionSingleton = CollisionSingleton::GetInstance();
 	std::unique_ptr<Health> m_Health;
+	Rectf m_Shape;
 
 private:
 	Player* m_PlayerPtr;
@@ -64,6 +65,18 @@ public:
 	void Render() const override;
 
 private:
-	Rectf m_Shape;
 
+};
+
+class FirstBoss final : public Boss
+{
+public:
+	FirstBoss(Scene* scene, Player* player);
+	~FirstBoss() = default;
+
+	void Update() override;
+	void Render() const override;
+
+private:
+	//Rectf m_Shape;
 };
