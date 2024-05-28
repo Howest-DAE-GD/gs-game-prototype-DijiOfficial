@@ -45,5 +45,7 @@ private:
 	float m_Angle = 0.f;
 	bool m_IsInvincible = false;
 	float m_Iframes = 0.0f;
+
+	void WarpPlayer();
 };
 

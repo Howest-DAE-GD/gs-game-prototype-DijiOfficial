@@ -27,6 +27,8 @@ public:
 	unsigned int GetID() const { return m_ID; }
 
 	bool IsDropped() const { return m_IsDropped; }
+	bool IsOwned() const { return m_IsOwned; }
+	void SetUsed() { m_IsOwned = false; }
 	Rectf GetShape() const { return Rectf{ m_Center.x, m_Center.y, 8, 8 }; }
 	void SetPos(const Point2f& pos) { m_Center = pos; }
 

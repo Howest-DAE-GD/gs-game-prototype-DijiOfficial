@@ -26,7 +26,7 @@
      showgrid="false"
      inkscape:zoom="0.3025"
      inkscape:cx="3889.2562"
-     inkscape:cy="2211.5703"
+     inkscape:cy="2476.0331"
      inkscape:window-width="2560"
      inkscape:window-height="1377"
      inkscape:window-x="1912"
@@ -45,8 +45,31 @@
        id="image17" />
   </g>
   <path
-     id="rect410"
      style="opacity:0.33"
-     d="m 1520,3000 v -230 h 50 v 230 z m 230.3639,-927.3076 v -230 h 50 v 230 z m 2245.2102,479.1963 V 2258.775 h 50 v 293.1137 z M 5844.265,2203.1485 v -293.1137 h 50 v 293.1137 z m 210.0739,508.6976 v -81.5435 h 304.5455 v 81.5435 z M 4246.0744,3829.2015 v -293.1137 h 50 v 293.1137 z m -629.7521,-456.1983 v -81.5435 h 304.5455 v 81.5435 z"
-     sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccc" />
+     d="m 3616.3223,3373.0032 v -81.5435 h 304.5455 v 81.5435 z"
+     id="path171" />
+  <path
+     style="opacity:0.33"
+     d="m 4246.0744,3829.2015 v -293.1137 h 50 v 293.1137 z"
+     id="path169" />
+  <path
+     style="opacity:0.33"
+     d="m 6054.3389,2711.8461 v -81.5435 h 304.5455 v 81.5435 z"
+     id="path167" />
+  <path
+     style="opacity:0.33"
+     d="m 5844.265,2203.1485 v -293.1137 h 50 v 293.1137 z"
+     id="path165" />
+  <path
+     style="opacity:0.33"
+     d="M 3995.5741,2551.8887 V 2258.775 h 50 v 293.1137 z"
+     id="path163" />
+  <path
+     style="opacity:0.33"
+     d="m 1750.3639,2072.6924 v -230 h 50 v 230 z"
+     id="path161" />
+  <path
+     style="opacity:0.33"
+     d="m 1520,3000 v -230 h 50 v 230 z"
+     id="rect410" />
 </svg>

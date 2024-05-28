@@ -8,13 +8,13 @@ void ItemManager::Init(Scene* scene, Player* player)
 {
 	m_PlayerPtr = player;
 	
-	m_ItemsMap.emplace(0, scene->CreateGameObjects<Key>(player, 0));
+	//m_ItemsMap.emplace(0, scene->CreateGameObjects<Key>(player, 0));
 	m_ItemsMap.emplace(1, scene->CreateGameObjects<Key>(player, 1));
-	m_ItemsMap.emplace(2, scene->CreateGameObjects<Key>(player, 2));
-	m_ItemsMap.emplace(3, scene->CreateGameObjects<Key>(player, 3));
-	m_ItemsMap.emplace(4, scene->CreateGameObjects<Key>(player, 4));
-	m_ItemsMap.emplace(5, scene->CreateGameObjects<Key>(player, 5));
-	m_ItemsMap.emplace(6, scene->CreateGameObjects<Key>(player, 6));
+	m_ItemsMap.emplace(2, scene->CreateGameObjects<Key>(player, 1));
+	m_ItemsMap.emplace(3, scene->CreateGameObjects<Key>(player, 1));
+	m_ItemsMap.emplace(4, scene->CreateGameObjects<Key>(player, 1));
+	m_ItemsMap.emplace(5, scene->CreateGameObjects<Key>(player, 1));
+	m_ItemsMap.emplace(6, scene->CreateGameObjects<Key>(player, 1));
 };
 
 void ItemManager::DropItem(const int id, const Point2f& pos)
@@ -41,6 +41,28 @@ void ItemManager::IsCollidingWithPlayer()
 					//SceneManager::GetInstance().GetScene("Hud")->AddExistingObject(item.second);
 				}
 			}
+		}
+	}
+}
+
+bool ItemManager::HasKey(const unsigned int doorId) const
+{
+	for (auto& item : m_ItemsMap)
+	{
+		if (item.second->GetID() == doorId and item.second->IsOwned())
+		{
+			return true;
+		}
+	}
+}
+
+void ItemManager::UseKey(const unsigned int doorId)
+{
+	for (auto& item : m_ItemsMap)
+	{
+		if (item.second->GetID() == doorId)
+		{
+			item.second->SetUsed();
 		}
 	}
 }

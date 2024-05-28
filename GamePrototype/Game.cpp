@@ -10,7 +10,7 @@
 #include "Camera.h"
 #include "EnemyManager.h"
 #include "BossManager.h"
-
+#include "DoorManager.h"
 #include "SceneManager.h"
 #include "ItemManager.h"
 //temp
@@ -49,6 +49,7 @@ void Game::CreateScene()
 	scene->AddGameObject<Level>();
 	scene->AddGameObject<Player>();
 	scene->AddGameObject<EnemyManager>(scene->GetGameObject<Player>());
+	scene->AddGameObject<DoorManager>(scene->GetGameObject<Player>());
 
 	CollisionSingleton::GetInstance().AddPlayer(scene->GetGameObject<Player>());
 }

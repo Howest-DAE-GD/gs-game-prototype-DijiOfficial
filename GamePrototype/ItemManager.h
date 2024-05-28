@@ -14,6 +14,9 @@ public:
 
 	void IsCollidingWithPlayer();
 
+	bool HasKey(const unsigned int doorId) const;
+	void UseKey(const unsigned int doorId);
+
 private:
 	std::map<int, Item*> m_ItemsMap;
 

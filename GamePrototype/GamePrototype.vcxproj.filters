@@ -126,6 +126,9 @@
     <ClCompile Include="DoorManager.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
+    <ClCompile Include="Doors.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -222,6 +225,9 @@
       <Filter>EngineFiles</Filter>
     </ClInclude>
     <ClInclude Include="DoorManager.h">
+      <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Doors.h">
       <Filter>EngineFiles</Filter>
     </ClInclude>
   </ItemGroup>

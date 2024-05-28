@@ -16,7 +16,7 @@ Player::Player(Scene* scene)
 #include <iostream>
 void Player::Update()
 {
-
+	WarpPlayer();
 	//std::cout << m_Shape.left << " " << m_Shape.bottom << std::endl;
 	m_BasicAttack->Update();
 
@@ -106,4 +106,24 @@ void Player::DealDamage(const int damage)
 	// maybe get type of damage so you can still get hit by projectiles?
 	m_IsInvincible = true;
 	//get health if 0 die or some
+}
+
+void Player::WarpPlayer()
+{
+	if (m_Shape.left > 1100 and m_Shape.left < 1300)
+	{
+		if (m_Shape.bottom > 5800)
+		{
+			m_Shape.left = 6150;
+			m_Shape.bottom = 5550;
+		}
+	}
+	else if (m_Shape.left > 6080 and m_Shape.left < 6270)
+	{
+		if (m_Shape.bottom > 5800)
+		{
+			m_Shape.left = 1200;
+			m_Shape.bottom = 5500;
+		}
+	}
 }

@@ -1,7 +1,9 @@
 #pragma once
 #include "GameObject.h"
+#include "Doors.h"
 
 class Player;
+class Texture;
 
 class DoorManager final : public GameObject
 {
@@ -16,10 +18,11 @@ public:
 
 	//bool IsFinalBossDead() const;
 private:
-	//std::vector<std::unique_ptr<Boss>> m_Bosses;
-	//std::vector<std::vector<Point2f>> m_BossTrigers;
+	Texture* m_OpenDoorText;
+	std::vector<std::unique_ptr<Doors>> m_DoorsPtr;
+	std::vector<std::vector<Point2f>> m_Doors;
 
-	//Player* m_PlayerPtr;
+	Player* m_PlayerPtr;
 	//BossHealthBar* m_BossHealthBarPtr;
 
 	//bool m_IsBossActive = false;
@@ -28,6 +31,6 @@ private:
 	//void CheckForBossTriggers(int& id);
 	//void ActivateBoss(int id);
 
-	//void Init();
+	void Init();
 };
 
