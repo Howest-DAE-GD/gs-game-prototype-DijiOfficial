@@ -13,10 +13,9 @@ public:
 
 	void Update() override;
 	void Render() const override;
-
-	//bool GetIsBossActive() const { return m_IsBossActive; }
-
-	//bool IsFinalBossDead() const;
+	void Reset() override;
+	bool IsPlayerColliding(const Rectf& actorShape) const;
+	
 private:
 	Texture* m_OpenDoorText;
 	std::vector<std::unique_ptr<Doors>> m_DoorsPtr;

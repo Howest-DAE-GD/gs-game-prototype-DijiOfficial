@@ -127,6 +127,11 @@ public:
 		}
     }
 
+	void ResetScene(const std::string& scene)
+	{
+		m_Scenes[scene]->Reset();
+	}
+
 	//void SetGameState(const GameState state) { m_GameState = state; }
 	void TranferScene(const std::string& fromScene, const std::string& toScene, GameObject* object)
 	{

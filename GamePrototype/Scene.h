@@ -31,7 +31,7 @@ public:
 
     void Update();
     void Render() const;
-
+    void Reset();
     // Function to get a pointer to a GameObject by its type
     template <typename T>
     T* GetGameObject() const

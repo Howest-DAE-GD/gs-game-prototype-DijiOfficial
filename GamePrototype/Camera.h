@@ -13,6 +13,7 @@ public:
 	
 	void Update() override {};
 	void Render() const override;
+	void Reset() override { m_IsLocked = false; };
 	//void SetLevelBoundaries(const Rectf& levelBoundaries);
 	Rectf GetCameraPos(const Rectf& target) const;
 	//bool GetCameraLock() const;

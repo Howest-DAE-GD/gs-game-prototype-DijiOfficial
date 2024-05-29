@@ -3,6 +3,8 @@
 #include "ResourceManager.h"
 #include "Scene.h"
 #include "TimeSingleton.h"
+#include "DoorManager.h"
+#include "SceneManager.h"
 
 Player::Player(Scene* scene)
 	: GameObject{ scene }
@@ -12,7 +14,9 @@ Player::Player(Scene* scene)
 	m_LevelPtr = GetOwner()->GetGameObject<Level>();
 	m_BasicAttack = std::make_unique<ShootAttack>(m_LevelPtr);
 	m_Health = std::make_unique<Health>(400);
+	m_YouDiedText = ResourceManager::GetInstance().LoadTexture("Images/YouDied.png");
 }
+
 #include <iostream>
 void Player::Update()
 {
@@ -29,6 +33,16 @@ void Player::Update()
 		{
 			m_IsInvincible = false;
 			m_Iframes = 0.0f;
+		}
+	}
+
+	if (showDeathText)
+	{
+		m_textAppearTime += dt;
+		if (m_textAppearTime >= 2.f)
+		{
+			m_textAppearTime = 0.f;
+			showDeathText = false;
 		}
 	}
 }
@@ -61,6 +75,12 @@ void Player::Render() const
 	glPopMatrix();
 
 	m_BasicAttack->Render();
+
+	if (showDeathText)
+	{
+		//todo: fix this later
+		m_YouDiedText->Draw(Rectf{ 846.f * 0.5f - m_YouDiedText->GetWidth() * 0.5f, 500.f * 0.5f - m_YouDiedText->GetHeight(), m_YouDiedText->GetWidth(), m_YouDiedText->GetHeight() });
+	}
 	//utils::SetColor(Color4f{ 1.0f, 0.0f, 0.0f, 1.0f });
 	//utils::DrawRect(m_Shape);
 }
@@ -68,6 +88,11 @@ void Player::Render() const
 bool Player::IsColliding(const Rectf& actorShape) const
 {
 	return m_LevelPtr->IsPlayerColliding(actorShape);
+}
+
+bool Player::CollidingWithDoor(const Rectf& actorShape) const
+{
+	return m_DoorManagerPtr->IsPlayerColliding(actorShape);
 }
 
 Point2f Player::GetRelativeCenter() const
@@ -103,9 +128,15 @@ void Player::Attack()
 void Player::DealDamage(const int damage)
 {
 	m_Health->DealDamage(damage);
-	// maybe get type of damage so you can still get hit by projectiles?
+	//todo: maybe get type of damage so you can still get hit by projectiles?
 	m_IsInvincible = true;
-	//get health if 0 die or some
+
+	if (m_Health->GetHealth() <= 0)
+	{
+		showDeathText = true;
+		SceneManager::GetInstance().ResetScene("Level");
+		SceneManager::GetInstance().ResetScene("Hud");
+	}
 }
 
 void Player::WarpPlayer()
@@ -126,4 +157,11 @@ void Player::WarpPlayer()
 			m_Shape.bottom = 5500;
 		}
 	}
+}
+
+void Player::Reset()
+{
+	m_Shape = Rectf{ 4900, 1000, 64.f, 64.f };
+	m_Health->ResetHealth(400);
+	//todo: reset attack as well and exp
 }

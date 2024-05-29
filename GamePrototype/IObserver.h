@@ -31,6 +31,7 @@ public:
 	PlayerHealthBar(Scene* scene, const Rectf& shape, const Color4f& color, int health);
 		
 	virtual ~PlayerHealthBar() = default;
+	void Reset() override {};
 
 	void OnNotify(MessageTypes message, Subject* subject) override;
 };
@@ -41,6 +42,7 @@ public:
 	//BossHealthBar(Scene* scene, const Rectf& shape, const Color4f& color, int health);
 	using HealthBar::HealthBar;
 	virtual ~BossHealthBar() = default;
+	void Reset() override { SetInactive(); };
 
 	void OnNotify(MessageTypes message, Subject* subject) override;
 

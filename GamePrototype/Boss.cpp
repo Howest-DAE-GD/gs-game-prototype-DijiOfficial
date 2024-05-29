@@ -38,6 +38,13 @@ void FinalBoss::Render() const
 	utils::FillRect(m_Shape);
 }
 
+void FinalBoss::Reset()
+{
+	m_Health->ResetHealth(400);
+	m_State = BossState::DISABLED;
+	m_Shape = Rectf{ 6600, 300, 120.f, 120.f };
+}
+
 void Boss::Hit(int damage)
 {
 	m_Health->DealDamage(damage);
@@ -82,4 +89,11 @@ void FirstBoss::Render() const
 
 	utils::SetColor(Color4f{ 0.5f, 0.5f, 1.f, 1.f });
 	utils::FillRect(m_Shape);
+}
+
+void FirstBoss::Reset()
+{
+	m_Health->ResetHealth(100);
+	m_State = BossState::DISABLED;
+	m_Shape = Rectf{ 1400, 1200, 120.f, 120.f };
 }

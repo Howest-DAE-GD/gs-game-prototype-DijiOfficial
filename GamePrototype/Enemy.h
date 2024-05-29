@@ -38,6 +38,7 @@ public:
 
 	void Update() override = 0;
 	void Render() const override = 0;
+	void Reset() override = 0;
 
 	EnemyState GetState() const { return m_State; };
 	virtual void Hit() = 0;
@@ -59,11 +60,25 @@ class Goblin final : public Enemy
 { 
 public:
 	explicit Goblin(Scene* scene, Player* player, const Point2f& pos);
+	~Goblin() override;
 	void Update() override;
 	void Render() const override;
-
+	void Reset() override {};
 	void Hit() override;
 private:
 	Rectf m_Shape;
 	int m_Damage = 30;
+	Rectf m_originalShape;
+};
+
+class Test final : public Enemy
+{ 
+public:
+	explicit Test(Scene* scene, Player* player, const Point2f& pos);
+	void Update() override {};
+	void Render() const override;
+	void Reset() override {};
+	void Hit() override;
+private:
+	Rectf m_Shape;
 };

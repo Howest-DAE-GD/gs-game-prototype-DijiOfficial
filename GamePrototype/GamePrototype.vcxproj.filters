@@ -129,6 +129,9 @@
     <ClCompile Include="Doors.cpp">
       <Filter>GameFiles</Filter>
     </ClCompile>
+    <ClCompile Include="ItemCounter.cpp">
+      <Filter>GameFiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -228,6 +231,9 @@
       <Filter>EngineFiles</Filter>
     </ClInclude>
     <ClInclude Include="Doors.h">
+      <Filter>EngineFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemCounter.h">
       <Filter>EngineFiles</Filter>
     </ClInclude>
   </ItemGroup>

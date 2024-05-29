@@ -18,6 +18,7 @@ public:
     bool IsOpen() const { return m_IsOpen; }
     Rectf GetShape() const { return m_Shape; }
     unsigned int GetID() const { return m_ID; }
+    void Reset() { m_IsOpen = false; }
 private:
 	bool m_IsOpen = false;
 	Rectf m_Shape;

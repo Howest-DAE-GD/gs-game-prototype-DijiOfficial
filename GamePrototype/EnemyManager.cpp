@@ -19,17 +19,28 @@ EnemyManager::EnemyManager(Scene* scene, Player* player)
 
 void EnemyManager::Update()
 {
-    auto it = m_Enemies.begin();
-    while (it != m_Enemies.end())
+    for (const auto& enemy : m_Enemies)
     {
-        if ((*it)->GetState() == EnemyState::DEAD)
-            it = m_Enemies.erase(it);
-        else
-        {
-            (*it)->Update();
-            ++it;
-        }
-    }
+        if (enemy->GetState() != EnemyState::DEAD)
+		    enemy->Update();
+	}
+    //if (m_Enemies.empty())
+    //    return;
+
+    //auto it = m_Enemies.begin();
+    //while (it != m_Enemies.end())
+    //{
+    //    if (not (*it))
+    //        continue;
+
+    //    if ((*it)->GetState() == EnemyState::DEAD)
+    //        it = m_Enemies.erase(it);
+    //    else
+    //    {
+    //        (*it)->Update();
+    //        ++it;
+    //    }
+    //}
 }
 
 void EnemyManager::Render() const 
@@ -38,6 +49,17 @@ void EnemyManager::Render() const
 	{
 		enemy->Render();
 	}
+}
+
+void EnemyManager::Reset()
+{
+    for (const auto& enemy : m_Enemies)
+    {
+		enemy->Reset();
+	}
+    m_Enemies.clear();
+
+    ParseEnemyData(m_EnemiesPos);
 }
 
 void EnemyManager::AddEnemy(Player* player, const Point2f& pos)

@@ -8,6 +8,7 @@ public:
 
 	void DealDamage(int damage);
 	int GetHealth() const { return m_Health; }
+	void ResetHealth(int health);
 
 private:
 	int m_Health;

@@ -13,6 +13,8 @@
 #include "DoorManager.h"
 #include "SceneManager.h"
 #include "ItemManager.h"
+#include "ItemCounter.h"
+
 //temp
 #include <iostream>
 Game::Game( const Window& window ) 
@@ -50,6 +52,7 @@ void Game::CreateScene()
 	scene->AddGameObject<Player>();
 	scene->AddGameObject<EnemyManager>(scene->GetGameObject<Player>());
 	scene->AddGameObject<DoorManager>(scene->GetGameObject<Player>());
+	scene->AddGameObject<Test>(scene->GetGameObject<Player>(), Point2f{ 4925.f, 1350.f });
 
 	CollisionSingleton::GetInstance().AddPlayer(scene->GetGameObject<Player>());
 }
@@ -65,6 +68,7 @@ void Game::CreateHud()
 	auto& viewport = GetViewPort();
 	Rectf bossHealthBar{ viewport.width * 0.25f, viewport.height - 80.0f, viewport.width * 0.5f, 40.0f };
 	hud->AddGameObject<BossHealthBar>(bossHealthBar, Color4f{ 1.0f, 0.0f, 0.0f, 1.0f }, scene->GetGameObject<Player>()->GetHealth());
+	hud->AddGameObject<ItemCounter>();
 
 	//oops
 	scene->AddGameObject<BossManager>(scene->GetGameObject<Player>(), hud->GetGameObject<BossHealthBar>());

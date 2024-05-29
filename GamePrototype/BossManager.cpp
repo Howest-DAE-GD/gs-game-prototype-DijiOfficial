@@ -50,6 +50,16 @@ void BossManager::Render() const
 	}
 }
 
+void BossManager::Reset()
+{
+	m_IsBossActive = false; 
+	m_CurrentActiveBoss = -1;
+	for (const auto& boss : m_Bosses)
+	{
+		boss->Reset();
+	}
+};
+
 bool BossManager::IsFinalBossDead() const
 {
 	return m_Bosses[0]->GetState() == BossState::DEAD;

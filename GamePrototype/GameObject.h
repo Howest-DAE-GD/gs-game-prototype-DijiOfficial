@@ -19,6 +19,7 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Render() const = 0;
+	virtual void Reset() = 0;
 
 protected:
 	Scene* GetOwner() const { return m_Owner; }

@@ -20,7 +20,7 @@ public:
 
 	void Update() override;
 	void Render() const override;
-
+	void Reset() override;
 	void AddEnemy(Player* player, const Point2f& pos);
 	void AddEnemy(Scene* scene, Player* player, const Point2f& pos);
 	void ParseEnemyData(std::vector<std::vector<Point2f>> enemies);

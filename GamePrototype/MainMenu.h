@@ -12,7 +12,7 @@ public:
 
 	void Update() override;
 	void Render() const override;
-
+	void Reset() override {};
 	int GetSelectedButton() const { return m_SelectedButton; }
 
 private:

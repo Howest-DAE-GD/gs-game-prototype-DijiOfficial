@@ -17,6 +17,14 @@ void Scene::Render() const
 	}
 }
 
+void Scene::Reset()
+{
+	for (const auto& gameObject : m_GameObjects)
+	{
+		gameObject->Reset();
+	}
+}
+
 void Scene::Remove(GameObject* object)
 {
 	std::erase_if(m_GameObjects,

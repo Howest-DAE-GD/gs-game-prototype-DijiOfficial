@@ -32,7 +32,7 @@ public:
 
 	void Update() override = 0;
 	void Render() const override = 0;
-
+	void Reset() override = 0;
 	void Hit(int damage);
 
 	void Activate() { m_State = BossState::ALIVE; }
@@ -63,9 +63,9 @@ public:
 
 	void Update() override;
 	void Render() const override;
-
+	void Reset() override;
 private:
-
+	//todo: boss health bar is wrong suzed
 };
 
 class FirstBoss final : public Boss
@@ -76,6 +76,7 @@ public:
 
 	void Update() override;
 	void Render() const override;
+	void Reset() override;
 
 private:
 	//Rectf m_Shape;

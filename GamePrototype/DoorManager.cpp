@@ -4,6 +4,9 @@
 #include "SVGParser.h"
 #include "ResourceManager.h"
 #include "ItemManager.h"
+#include "InputManager.h"
+#include "SceneManager.h"
+#include "Player.h"
 
 DoorManager::DoorManager(Scene* scene, Player* player)
 	: GameObject{ scene }
@@ -17,16 +20,6 @@ void DoorManager::Update()
 {
 	for (const auto& door : m_DoorsPtr)
 	{
-		if (utils::IsOverlapping(door->GetShape(), m_PlayerPtr->GetShape()))
-		{
-			std::cout << "Player is overlapping with door: " << door->GetID() << "\n";
-			//if (m_PlayerPtr->HasKey())
-			//{
-			//	door->Open();
-			//}
-		}
-
-		//todo: I can just open the doors?????
 		if (not ItemManager::GetInstance().HasKey(door->GetID()))
 			continue;
 
@@ -62,6 +55,43 @@ void DoorManager::Render() const
 	}
 }
 
+void DoorManager::Reset()
+{
+	for (const auto& door : m_DoorsPtr)
+		if (door->GetID() != 999)
+			door->Reset();
+}
+
+bool DoorManager::IsPlayerColliding(const Rectf& actorShape) const
+{
+	int doorID{ -1 };
+	for (const auto& collisionBox : m_Doors)
+	{
+		++doorID;
+		if (m_DoorsPtr[doorID]->IsOpen())
+			continue;
+
+		const Point2f bottomLeft(actorShape.left, actorShape.bottom);
+		const Point2f topLeft(actorShape.left, actorShape.bottom + actorShape.height);
+
+		utils::HitInfo hitInfo;
+		if (utils::Raycast(collisionBox, bottomLeft, topLeft, hitInfo))
+			return true;
+
+		const Point2f topRight(actorShape.left + actorShape.width, actorShape.bottom + actorShape.height);
+		if (utils::Raycast(collisionBox, topLeft, topRight, hitInfo))
+			return true;
+
+
+		const Point2f bottomRight(actorShape.left + actorShape.width, actorShape.bottom);
+		if (utils::Raycast(collisionBox, topRight, bottomRight, hitInfo))
+			return true;
+
+		(void)hitInfo;
+	}
+	return false;
+}
+
 void DoorManager::Init()
 {
 	const auto& font = ResourceManager::GetInstance().LoadFont("Fonts/zig.ttf", 28);
@@ -79,4 +109,6 @@ void DoorManager::Init()
 		m_DoorsPtr.push_back(std::make_unique<Doors>(pos, ids[id]));
 		++id;
 	}
+
+	SceneManager::GetInstance().GetScene("Level")->GetGameObject<Player>()->AddDoorManager(this);
 }

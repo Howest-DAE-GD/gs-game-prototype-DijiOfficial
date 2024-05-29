@@ -20,7 +20,7 @@ public:
 
 	void Update() override;
 	void Render() const override;
-
+	void Reset() override;
 	bool GetIsBossActive() const { return m_IsBossActive; }
 
 	bool IsFinalBossDead() const;

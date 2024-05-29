@@ -17,7 +17,7 @@ public:
 
 	void Update() override {};
 	void Render() const override;
-
+	void Reset() override {};
 	bool IsPlayerColliding(const Rectf& playerShape) const;
 private:
 	std::vector<std::vector<Point2f>> m_VerticesVec;

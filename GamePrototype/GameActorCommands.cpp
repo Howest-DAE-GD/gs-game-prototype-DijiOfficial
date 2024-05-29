@@ -33,7 +33,7 @@ void Move::Execute()
 		break;
 	}
 
-	if (not m_PlayerPtr->IsColliding(pos))
+	if (not m_PlayerPtr->IsColliding(pos) and not m_PlayerPtr->CollidingWithDoor(pos))
 		m_PlayerPtr->SetShape(pos);
 }
 

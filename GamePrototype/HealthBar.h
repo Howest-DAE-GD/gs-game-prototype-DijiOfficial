@@ -13,7 +13,7 @@ public:
 
 	void Update() override;
 	void Render() const override;
-	
+	void Reset() override = 0;
 	void SetActive() { m_IsActive = true; };
 	void SetInactive() { m_IsActive = false; };
 protected:

@@ -21,14 +21,14 @@ public:
 
 	void Update() override = 0;
 	void Render() const override = 0;
-
+	void Reset() override = 0;
 	void Drop(const Point2f& pos) { m_IsDropped = true; m_Center = pos; }
 	void PickUp();
 	unsigned int GetID() const { return m_ID; }
 
 	bool IsDropped() const { return m_IsDropped; }
 	bool IsOwned() const { return m_IsOwned; }
-	void SetUsed() { m_IsOwned = false; }
+	void SetUsed();
 	Rectf GetShape() const { return Rectf{ m_Center.x, m_Center.y, 8, 8 }; }
 	void SetPos(const Point2f& pos) { m_Center = pos; }
 
@@ -54,4 +54,5 @@ public:
 
 	void Update() override;
 	void Render() const override;
+	void Reset() override;
 };

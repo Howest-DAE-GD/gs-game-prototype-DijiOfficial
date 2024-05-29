@@ -6,7 +6,7 @@
 
 class Texture;
 class Level;
-
+class DoorManager;
 class Player final : public GameObject
 {
 public:
@@ -20,6 +20,7 @@ public:
 
 	void Update() override;
 	void Render() const override;
+	void Reset() override;
 
 	//lmao shape as no business being private If i can just publicly change it
 	Rectf GetShape() const { return m_Shape; }
@@ -32,16 +33,22 @@ public:
 	Health* GetHealthObject() const { return m_Health.get(); }
 
 	bool IsColliding(const Rectf& actorShape) const;
+	bool CollidingWithDoor(const Rectf& actorShape) const;
 
 	void Attack();
 	void DealDamage(const int damage);
+	void AddDoorManager(DoorManager* doorManager) const { m_DoorManagerPtr = doorManager; };
 private:
 	std::unique_ptr<ShootAttack> m_BasicAttack;
 	Rectf m_Shape;
 	//Texture* m_pSpritesTexture;
+	Texture* m_YouDiedText;
 	Level* m_LevelPtr;
+	mutable DoorManager* m_DoorManagerPtr = nullptr;
 	std::unique_ptr<Health> m_Health;
 	
+	float m_textAppearTime = 0.0f;
+	bool showDeathText = false;
 	float m_Angle = 0.f;
 	bool m_IsInvincible = false;
 	float m_Iframes = 0.0f;

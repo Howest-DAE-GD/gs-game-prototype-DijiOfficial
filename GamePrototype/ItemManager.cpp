@@ -3,6 +3,7 @@
 #include "ItemManager.h"
 #include "Item.h"
 #include "SceneManager.h"
+#include "ItemCounter.h"
 
 void ItemManager::Init(Scene* scene, Player* player)
 {
@@ -15,6 +16,7 @@ void ItemManager::Init(Scene* scene, Player* player)
 	m_ItemsMap.emplace(4, scene->CreateGameObjects<Key>(player, 1));
 	m_ItemsMap.emplace(5, scene->CreateGameObjects<Key>(player, 1));
 	m_ItemsMap.emplace(6, scene->CreateGameObjects<Key>(player, 1));
+	m_ItemsMap.emplace(7, scene->CreateGameObjects<Key>(player, 999));
 };
 
 void ItemManager::DropItem(const int id, const Point2f& pos)
@@ -34,11 +36,7 @@ void ItemManager::IsCollidingWithPlayer()
 				//switch scenes
 				if (dynamic_cast<Key*>(item.second))
 				{
-					item.second->SetPos(Point2f{ 775.f - (int)item.second->GetID() * 16, 475.f });
-
-					SceneManager::GetInstance().TranferScene("Level", "Hud", item.second);
-					//SceneManager::GetInstance().GetScene("Level")->Remove(item.second);
-					//SceneManager::GetInstance().GetScene("Hud")->AddExistingObject(item.second);
+					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddKey();
 				}
 			}
 		}
@@ -54,6 +52,7 @@ bool ItemManager::HasKey(const unsigned int doorId) const
 			return true;
 		}
 	}
+	return false;
 }
 
 void ItemManager::UseKey(const unsigned int doorId)
