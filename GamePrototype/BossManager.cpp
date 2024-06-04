@@ -60,6 +60,20 @@ void BossManager::Reset()
 	}
 };
 
+bool BossManager::GetAreAllBossesDead() const
+{
+	bool allDead{ true };
+	for (const auto& boss : m_Bosses)
+	{
+		if (boss->GetID() != 0 and boss->GetState() != BossState::DEAD)
+		{
+			allDead = false;
+			break;
+		}
+	}
+	return allDead;
+}
+
 bool BossManager::IsFinalBossDead() const
 {
 	return m_Bosses[0]->GetState() == BossState::DEAD;
@@ -124,5 +138,10 @@ void BossManager::Init()
 	SVGParser::ParseSVGData(m_BossTrigers);
 
 	m_Bosses.push_back(std::make_unique<FinalBoss>(scene, m_PlayerPtr));
-	m_Bosses.push_back(std::make_unique<FirstBoss>(scene, m_PlayerPtr));
+	m_Bosses.push_back(std::make_unique<RealFirstBoss>(scene, m_PlayerPtr));
+	m_Bosses.push_back(std::make_unique<SecondBoss>(scene, m_PlayerPtr));
+	m_Bosses.push_back(std::make_unique<ThirdBoss>(scene, m_PlayerPtr));
+	m_Bosses.push_back(std::make_unique<FourthBoss>(scene, m_PlayerPtr));
+	m_Bosses.push_back(std::make_unique<FifthBoss>(scene, m_PlayerPtr));
+	m_Bosses.push_back(std::make_unique<SixthBoss>(scene, m_PlayerPtr));
 }

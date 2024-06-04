@@ -63,7 +63,7 @@ public:
 	~Goblin() override;
 	void Update() override;
 	void Render() const override;
-	void Reset() override {};
+	void Reset() override;
 	void Hit() override;
 private:
 	Rectf m_Shape;

@@ -17,6 +17,11 @@ EnemyManager::EnemyManager(Scene* scene, Player* player)
     ParseEnemyData(m_EnemiesPos);
 }
 
+EnemyManager::~EnemyManager()
+{
+    m_Enemies.clear();
+}
+
 void EnemyManager::Update()
 {
     for (const auto& enemy : m_Enemies)

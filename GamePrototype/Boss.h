@@ -68,14 +68,98 @@ private:
 	//todo: boss health bar is wrong suzed
 };
 
-class FirstBoss final : public Boss
+class FirstBoss : public Boss
 {
 public:
-	FirstBoss(Scene* scene, Player* player);
+	FirstBoss(Scene* scene, Player* player, int id = 0, int health = 100);
 	~FirstBoss() = default;
 
 	void Update() override;
 	void Render() const override;
+	void Reset() override {};
+
+private:
+	//Rectf m_Shape;
+};
+
+class RealFirstBoss : public FirstBoss
+{
+public:
+	RealFirstBoss(Scene* scene, Player* player);
+	~RealFirstBoss() = default;
+
+	//void Update() override;
+	//void Render() const override;
+	void Reset() override;
+
+private:
+	//Rectf m_Shape;
+};
+
+class SecondBoss : public FirstBoss
+{
+public:
+	SecondBoss(Scene* scene, Player* player);
+	~SecondBoss() = default;
+
+	//void Update() override;
+	//void Render() const override;
+	void Reset() override;
+
+private:
+	//Rectf m_Shape;
+};
+
+class ThirdBoss final : public FirstBoss
+{
+public:
+	ThirdBoss(Scene* scene, Player* player);
+	~ThirdBoss() = default;
+
+	//void Update() override;
+	//void Render() const override;
+	void Reset() override;
+
+private:
+	//Rectf m_Shape;
+};
+
+class FourthBoss final : public FirstBoss
+{
+public:
+	FourthBoss(Scene* scene, Player* player);
+	~FourthBoss() = default;
+
+	//void Update() override;
+	//void Render() const override;
+	void Reset() override;
+
+private:
+	//Rectf m_Shape;
+};
+
+class FifthBoss final : public FirstBoss
+{
+public:
+	FifthBoss(Scene* scene, Player* player);
+	~FifthBoss() = default;
+
+	//void Update() override;
+	//void Render() const override;
+	void Reset() override;
+
+private:
+	//Rectf m_Shape;
+};
+
+class SixthBoss final : public FirstBoss
+{
+public:
+	SixthBoss(Scene* scene, Player* player);
+	~SixthBoss() = default;
+
+	//void Update() override;
+	//void Render() const override;
 	void Reset() override;
 
 private:

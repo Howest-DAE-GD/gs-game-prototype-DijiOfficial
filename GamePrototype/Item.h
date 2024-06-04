@@ -56,3 +56,17 @@ public:
 	void Render() const override;
 	void Reset() override;
 };
+
+class FinalKey final : public Item
+{
+public:
+	FinalKey(Scene* scene, Player* player, const unsigned int id)
+		: Item(scene, player, id)
+	{
+	};
+	~FinalKey() = default;
+
+	void Update() override;
+	void Render() const override;
+	void Reset() override;
+};

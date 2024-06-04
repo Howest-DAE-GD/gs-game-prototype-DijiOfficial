@@ -9,7 +9,7 @@ void ItemManager::Init(Scene* scene, Player* player)
 {
 	m_PlayerPtr = player;
 	
-	//m_ItemsMap.emplace(0, scene->CreateGameObjects<Key>(player, 0));
+	m_ItemsMap.emplace(0, scene->CreateGameObjects<FinalKey>(player, 0));
 	m_ItemsMap.emplace(1, scene->CreateGameObjects<Key>(player, 1));
 	m_ItemsMap.emplace(2, scene->CreateGameObjects<Key>(player, 1));
 	m_ItemsMap.emplace(3, scene->CreateGameObjects<Key>(player, 1));
@@ -37,6 +37,10 @@ void ItemManager::IsCollidingWithPlayer()
 				if (dynamic_cast<Key*>(item.second))
 				{
 					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddKey();
+				}
+				if (dynamic_cast<FinalKey*>(item.second))
+				{
+					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddFinalKey();
 				}
 			}
 		}

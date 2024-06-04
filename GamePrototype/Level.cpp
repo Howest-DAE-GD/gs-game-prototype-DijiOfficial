@@ -15,7 +15,7 @@ Level::Level(Scene* scene)
 	SVGParser::GetVerticesFromSvgFile("test.svg", m_VerticesVec);
 	SVGParser::ParseSVGData(m_VerticesVec);
 
-	//LoadMap();
+	LoadMap();
 }
 
 Level::~Level()
@@ -30,7 +30,7 @@ Level::~Level()
 
 void Level::Render() const
 {
-	//PaintMap();
+	PaintMap();
 
 	utils::SetColor(Color4f{ 0.0f, 0.0f, 0.0f, 1.0f });
 	for (const auto& vertices : m_VerticesVec)

@@ -21,7 +21,7 @@ Player::Player(Scene* scene)
 void Player::Update()
 {
 	WarpPlayer();
-	//std::cout << m_Shape.left << " " << m_Shape.bottom << std::endl;
+	std::cout << m_Shape.left << " " << m_Shape.bottom << std::endl;
 	m_BasicAttack->Update();
 
 	//maybe it's own function or class?

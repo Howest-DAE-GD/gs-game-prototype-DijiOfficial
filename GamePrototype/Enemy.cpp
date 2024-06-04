@@ -16,9 +16,8 @@ Goblin::Goblin(Scene* scene, Player* player, const Point2f& pos)
 
 Goblin::~Goblin()
 {
-	if (m_State != EnemyState::DEAD)
-		m_CollisionSingleton.RemoveCollider(this);
-};
+
+}
 
 void Goblin::Update()
 {
@@ -53,6 +52,18 @@ void Goblin::Render() const
 
 	utils::SetColor(Color4f{ 0.f, 0.f, 1.f, 1.f });
 	utils::FillRect(m_Shape);
+}
+
+void Goblin::Reset()
+{
+	if (m_State != EnemyState::DEAD)
+	{
+		// Ensure the collision singleton is still valid before removing
+		if (&m_CollisionSingleton != nullptr)
+		{
+			m_CollisionSingleton.RemoveCollider(this);
+		}
+	}
 }
 
 //void Goblin::Reset()

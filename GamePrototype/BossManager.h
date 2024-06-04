@@ -22,7 +22,7 @@ public:
 	void Render() const override;
 	void Reset() override;
 	bool GetIsBossActive() const { return m_IsBossActive; }
-
+	bool GetAreAllBossesDead() const;
 	bool IsFinalBossDead() const;
 private:
 	std::vector<std::unique_ptr<Boss>> m_Bosses;

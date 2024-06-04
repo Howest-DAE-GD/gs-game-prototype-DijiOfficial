@@ -11,7 +11,7 @@ class EnemyManager final : public GameObject
 {
 public:
 	EnemyManager(Scene* scene, Player* player);
-	~EnemyManager() override = default;
+	~EnemyManager() override;
 
 	EnemyManager(const EnemyManager& other) = delete;
 	EnemyManager(EnemyManager&& other) = delete;

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "TimeSingleton.h"
 #include "ItemManager.h"
+#include "SceneManager.h"
 
 FinalBoss::FinalBoss(Scene* scene, Player* player)
 	: Boss(scene, player, 0, 400)
@@ -52,16 +53,21 @@ void Boss::Hit(int damage)
 	if (m_Health->GetHealth() <= 0)
 	{
 		m_State = BossState::DEAD;
-		ItemManager::GetInstance().DropItem(m_ID, Point2f{ m_Shape.left, m_Shape.bottom });
+		if (SceneManager::GetInstance().GetScene("Level")->GetGameObject<BossManager>()->GetAreAllBossesDead())
+		{
+			ItemManager::GetInstance().DropItem(0, Point2f{ m_Shape.left, m_Shape.bottom });
+		}
+		else
+			ItemManager::GetInstance().DropItem(m_ID, Point2f{ m_Shape.left, m_Shape.bottom });
 	}
 
 	//m_CollisionSingleton.RemoveCollider(this); //put this in the destructor (of enemy even?)
 }
 
-FirstBoss::FirstBoss(Scene* scene, Player* player)
-	: Boss(scene, player, 1, 100)
+FirstBoss::FirstBoss(Scene* scene, Player* player, int id, int health )
+	: Boss(scene, player, id, health)
 {
-	m_Shape = Rectf{ 1400, 1200, 120.f, 120.f };
+	//m_Shape = Rectf{ 1400, 1200, 120.f, 120.f };
 }
 
 void FirstBoss::Update()
@@ -79,6 +85,7 @@ void FirstBoss::Update()
 	m_Shape.bottom += direction.y * m_Speed * deltaTime;
 
 	m_CollisionSingleton.UpdateCollider(this, m_Shape);
+	m_CollisionSingleton.HitPlayerType(m_Shape, 20);
 	//m_CollisionSingleton.HitPlayerType(m_Shape, m_Damage);
 }
 
@@ -91,9 +98,79 @@ void FirstBoss::Render() const
 	utils::FillRect(m_Shape);
 }
 
-void FirstBoss::Reset()
+void RealFirstBoss::Reset()
 {
 	m_Health->ResetHealth(100);
 	m_State = BossState::DISABLED;
 	m_Shape = Rectf{ 1400, 1200, 120.f, 120.f };
+}
+
+RealFirstBoss::RealFirstBoss(Scene* scene, Player* player)
+	: FirstBoss(scene, player, 1, 100)
+{
+	m_Shape = Rectf{ 1400, 1200, 120.f, 120.f };
+}
+SecondBoss::SecondBoss(Scene* scene, Player* player)
+	: FirstBoss(scene, player, 2, 200)
+{
+	m_Shape = Rectf{ 4000.f, 3850.f, 120.f, 120.f };
+}
+
+void SecondBoss::Reset()
+{
+	m_Health->ResetHealth(200);
+	m_State = BossState::DISABLED;
+	m_Shape = Rectf{ 4000.f, 3850.f, 120.f, 120.f };
+}
+
+ThirdBoss::ThirdBoss(Scene* scene, Player* player)
+	: FirstBoss(scene, player, 3, 300)
+{
+	m_Shape = Rectf{ 1150.f, 4930.f, 120.f, 120.f };
+}
+
+void ThirdBoss::Reset()
+{
+	m_Health->ResetHealth(300);
+	m_State = BossState::DISABLED;
+	m_Shape = Rectf{ 1150.f, 4930.f, 120.f, 120.f };
+}
+
+FourthBoss::FourthBoss(Scene* scene, Player* player)
+	: FirstBoss(scene, player, 4, 400)
+{
+	m_Shape = Rectf{ 8400.f, 3300.f, 120.f, 120.f };
+}
+
+void FourthBoss::Reset()
+{
+	m_Health->ResetHealth(400);
+	m_State = BossState::DISABLED;
+	m_Shape = Rectf{ 4000.f, 3850.f, 120.f, 120.f };
+}
+
+FifthBoss::FifthBoss(Scene* scene, Player* player)
+	: FirstBoss(scene, player, 5, 400)
+{
+	m_Shape = Rectf{ 9000.f, 400.f, 120.f, 120.f };
+}
+
+void FifthBoss::Reset()
+{
+	m_Health->ResetHealth(400);
+	m_State = BossState::DISABLED;
+	m_Shape = Rectf{ 9000.f, 400.f, 120.f, 120.f };
+}
+
+SixthBoss::SixthBoss(Scene* scene, Player* player)
+	: FirstBoss(scene, player, 6, 400)
+{
+	m_Shape = Rectf{ 5450.f, 1900.f, 120.f, 120.f };
+}
+
+void SixthBoss::Reset()
+{
+	m_Health->ResetHealth(400);
+	m_State = BossState::DISABLED;
+	m_Shape = Rectf{ 5450.f, 1900.f, 120.f, 120.f };
 }

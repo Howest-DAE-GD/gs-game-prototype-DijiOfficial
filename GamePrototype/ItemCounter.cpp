@@ -7,6 +7,7 @@ ItemCounter::ItemCounter(Scene* scene)
 {
 	font = ResourceManager::GetInstance().LoadFont("Fonts/zig.ttf", 16);
 	m_KeyTexture = ResourceManager::GetInstance().LoadTexture(std::to_string(m_KeyCounter), font, Color4f{ 1.f, 1.f, 1.f, 1.f });
+	m_FinalKeyTexture = ResourceManager::GetInstance().LoadTexture(std::to_string(0), font, Color4f{ 1.f, 1.f, 1.f, 1.f });
 }
 
 void ItemCounter::Render() const
@@ -14,6 +15,10 @@ void ItemCounter::Render() const
 	utils::SetColor(Color4f{ 1.f, 1.f, 1.f, 1.f });
 	utils::FillArc(center, 6, 6, 0, 360);
 	m_KeyTexture->Draw(pos);
+
+	utils::SetColor(Color4f{ 1.f, 0.f, 0.f, 1.f });
+	utils::FillArc(Point2f{center.x, center.y - 20}, 6, 6, 0, 360);
+	m_FinalKeyTexture->Draw(Point2f{ pos.x, pos.y - 20 });
 }
 
 void ItemCounter::Reset()
@@ -34,3 +39,14 @@ void ItemCounter::RemoveKey()
 	m_KeyTexture = ResourceManager::GetInstance().LoadTexture(std::to_string(m_KeyCounter), font, Color4f{ 1.f, 1.f, 1.f, 1.f });
 }
 
+void ItemCounter::AddFinalKey()
+{
+	m_HasFinalKey = true;
+	m_FinalKeyTexture = ResourceManager::GetInstance().LoadTexture("1", font, Color4f{ 1.f, 0.f, 0.f, 1.f });
+}
+
+void ItemCounter::RemoveFinalKey()
+{
+	m_HasFinalKey = false;
+	m_FinalKeyTexture = ResourceManager::GetInstance().LoadTexture("0", font, Color4f{1.f, 0.f, 0.f, 1.f});
+}

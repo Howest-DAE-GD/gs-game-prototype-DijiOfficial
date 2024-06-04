@@ -18,9 +18,13 @@ void CollisionSingleton::AddCollider(GameObject* object, const Rectf& collider)
 
 void CollisionSingleton::RemoveCollider(GameObject* object)
 {
+	if (object == nullptr or m_Colliders.empty()) return;
+
 	auto it = m_Colliders.find(object);
 	if (it != m_Colliders.end())
+	{
 		m_Colliders.erase(it);
+	}
 }
 
 void CollisionSingleton::UpdateCollider(GameObject* object, const Rectf& collider)
