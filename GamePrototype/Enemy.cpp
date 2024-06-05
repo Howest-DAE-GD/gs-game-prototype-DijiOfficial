@@ -81,7 +81,7 @@ void Goblin::Hit(int)
 	m_State = EnemyState::DEAD;
 	m_CollisionSingleton.RemoveCollider(this); //put this in the destructor (of enemy even?)
 	std::srand(std::time(nullptr));
-	if (std::rand() % 10 < 1)
+	if (std::rand() % 5 < 1)
 	{
 		ItemManager::GetInstance().DropItem(69, Point2f{ m_Shape.left, m_Shape.bottom });
 	}
@@ -257,7 +257,7 @@ void Turret::Hit(int damage)
 	m_State = EnemyState::DEAD;
 	m_CollisionSingleton.RemoveCollider(this);
 	std::srand(std::time(nullptr));
-	if (std::rand() % 7 < 1)
+	if (std::rand() % 3 < 1)
 	{
 		ItemManager::GetInstance().DropItem(69, Point2f{ m_Shape.left, m_Shape.bottom });
 	}
