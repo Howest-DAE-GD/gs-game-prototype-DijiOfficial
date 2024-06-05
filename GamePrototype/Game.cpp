@@ -14,7 +14,7 @@
 #include "SceneManager.h"
 #include "ItemManager.h"
 #include "ItemCounter.h"
-
+#include "Shop.h"
 //temp
 #include <iostream>
 Game::Game( const Window& window ) 
@@ -53,6 +53,7 @@ void Game::CreateScene()
 	scene->AddGameObject<EnemyManager>(scene->GetGameObject<Player>());
 	scene->AddGameObject<DoorManager>(scene->GetGameObject<Player>());
 	scene->AddGameObject<Test>(scene->GetGameObject<Player>(), Point2f{ 4925.f, 1350.f });
+	scene->AddGameObject<Shop>(scene->GetGameObject<Player>());
 
 	CollisionSingleton::GetInstance().AddPlayer(scene->GetGameObject<Player>());
 }

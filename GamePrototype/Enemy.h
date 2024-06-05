@@ -1,6 +1,9 @@
 #pragma once
 #include "GameObject.h"
 #include "CollisionSingleton.h"
+#include "Bullets.h"
+#include <memory>
+#include <vector>
 
 class Player;
 class Scene;
@@ -16,8 +19,8 @@ enum class EnemyState
 
 enum class EnemyType
 {
-	GOBLIN = 0,
-	ORC,
+	TURRET = 0,
+	GOBLIN,
 	TROLL,
 };
 
@@ -41,7 +44,7 @@ public:
 	void Reset() override = 0;
 
 	EnemyState GetState() const { return m_State; };
-	virtual void Hit() = 0;
+	virtual void Hit(int damage) = 0;
 
 protected:
 	Player* GetPlayer() const { return m_PlayerPtr; }
@@ -64,11 +67,32 @@ public:
 	void Update() override;
 	void Render() const override;
 	void Reset() override;
-	void Hit() override;
+	void Hit(int) override;
 private:
 	Rectf m_Shape;
 	int m_Damage = 30;
 	Rectf m_originalShape;
+};
+
+class Turret final : public Enemy
+{
+public:
+	explicit Turret(Scene* scene, Player* player, const Point2f& pos);
+	~Turret() override = default;
+
+	void Update() override;
+	void Render() const override;
+	void Reset() override;
+	void Hit(int damage) override;
+private:
+	Rectf m_Shape;
+	int m_Damage = 20;
+	Rectf m_originalShape;
+	int health = 80;
+	float timer = 0;
+	bool attacked = false;
+	std::vector<std::unique_ptr<Bullets>> m_Bullets;
+
 };
 
 class Test final : public Enemy
@@ -78,7 +102,7 @@ public:
 	void Update() override {};
 	void Render() const override;
 	void Reset() override {};
-	void Hit() override;
+	void Hit(int) override;
 private:
 	Rectf m_Shape;
 };

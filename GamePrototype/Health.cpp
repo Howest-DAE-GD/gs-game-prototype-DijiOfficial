@@ -18,3 +18,16 @@ void Health::ResetHealth(int health)
 	m_Health = health;
 	Notify(MessageTypes::HEALTH_CHANGE);
 }
+
+void Health::ResetHealth()
+{
+	m_Health = totalHealth;
+	Notify(MessageTypes::HEALTH_CHANGE);
+}
+
+void Health::AddHealth()
+{
+	totalHealth += 20;
+	m_Health = totalHealth;
+	Notify(MessageTypes::HEALTH_CHANGE);
+}

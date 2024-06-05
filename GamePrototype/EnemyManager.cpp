@@ -91,9 +91,17 @@ void EnemyManager::ParseEnemyData(std::vector<std::vector<Point2f>> enemies)
             {
 			    m_Enemies.push_back(std::make_unique<Goblin>(scene, m_Player, pos));
 		    }
-		break;
+			break;
+        case EnemyType::TURRET:
+            for (const auto& pos : enemies[i])
+            {
+                m_Enemies.push_back(std::make_unique<Turret>(scene, m_Player, pos));
+            }
+		    break;
         default:
             break;
         }
     }
+    //m_Enemies.push_back(std::make_unique<Turret>(scene, m_Player, Point2f{4770, 1250}));
+
 }

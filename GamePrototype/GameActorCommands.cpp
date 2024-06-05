@@ -14,6 +14,8 @@ Move::Move(GameObject* actor, Movement movement)
 
 void Move::Execute()
 {
+	if (m_PlayerPtr->GetPause())
+		return;
 	const auto& deltaTime = TimeSingleton::GetInstance().GetDeltaTime();
 	auto pos = m_PlayerPtr->GetShape();
 
@@ -68,6 +70,8 @@ Rotate::Rotate(GameObject* actor)
 
 void Rotate::Execute()
 {
+	if (m_PlayerPtr->GetPause())
+		return;
 	const auto& mousePos = InputManager::GetInstance().GetMouseMotion();
 	const auto& playerShape = m_PlayerPtr->GetRelativeCenter();
 
@@ -89,6 +93,8 @@ Attack::Attack(GameObject* actor)
 
 void Attack::Execute()
 {
+	if (m_PlayerPtr->GetPause())
+		return;
 	m_PlayerPtr->Attack();
 }
 

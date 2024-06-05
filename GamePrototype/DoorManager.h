@@ -15,7 +15,7 @@ public:
 	void Render() const override;
 	void Reset() override;
 	bool IsPlayerColliding(const Rectf& actorShape) const;
-	
+	std::vector<std::vector<Point2f>> GetDoors() const { return m_Doors; };
 private:
 	Texture* m_OpenDoorText;
 	std::vector<std::unique_ptr<Doors>> m_DoorsPtr;

@@ -19,6 +19,11 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Render() const = 0;
+
+	int GetDamage() const { return damage; };
+	void IncreaseDamage() { damage += 10; };
+protected:
+	int damage{ 25 };
 };
 
 class ShootAttack final : public PlayerAttacks
@@ -32,8 +37,18 @@ public:
 	void Render() const override;
 
 	void Attack(const Point2f& pos, float angle);
-	
+	void ReduceCooldown()
+	{
+		if (m_AttackCoolDown > 0.f)
+		{
+			m_AttackCoolDown -= 0.1f;
+		}
+	};
+
 private:
 	Level* m_LevelPtr;
 	std::vector<std::unique_ptr<Bullets>> m_Bullets;
+	bool m_HasAttacked{ false };
+	float timer{ 0.f };
+	float m_AttackCoolDown{ 1.5f };
 };

@@ -68,17 +68,19 @@ bool CollisionSingleton::HitEnemyType(const Rectf& shape)
 	{
 		if (utils::IsOverlapping(shape, pair.second))
 		{
+			const auto& damage = m_PlayerPtr->GetDamage();
+
 			Enemy* enemy = dynamic_cast<Enemy*>(pair.first);
 			if (enemy)
 			{
-				enemy->Hit();//can add damage or more info to this call later
+				enemy->Hit(damage);//can add damage or more info to this call later
 				hit = true;
 			}
 
 			Boss* boss = dynamic_cast<Boss*>(pair.first);
 			if (boss)
 			{
-				boss->Hit(25); //currently hard coded get it from the player
+				boss->Hit(damage); //currently hard coded get it from the player
 				hit = true;
 			}
 		}
@@ -97,6 +99,7 @@ bool CollisionSingleton::HitPlayerType(const Rectf& shape, const int damage)
 	if (utils::IsOverlapping(shape, m_PlayerPtr->GetShape()))
 	{
 		m_PlayerPtr->DealDamage(damage);
+		hit = true;
 	}
 
 	return hit;

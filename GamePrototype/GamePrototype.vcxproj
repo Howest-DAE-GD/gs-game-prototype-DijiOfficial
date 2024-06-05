@@ -210,6 +210,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Tiles.cpp" />
     <ClCompile Include="WFC.cpp" />
@@ -246,6 +247,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Tiles.h" />
     <ClInclude Include="WFC.h" />

@@ -4,10 +4,11 @@
 #include "TimeSingleton.h"
 #include "utils.h"
 
-Bullets::Bullets(const Point2f& pos, float angle)
+Bullets::Bullets(const Point2f& pos, float angle, Color4f color)
 	: m_Shape{ pos.x, pos.y, 8.f, 4.f }
 	, m_AngleDeg{ angle }
 	, m_AngleRad{ static_cast<float>(angle * M_PI / 180.0f) }
+	, m_Color{ color }
 {
 }
 
@@ -30,6 +31,7 @@ void Bullets::Render() const
 		glRotatef(m_AngleDeg, 0.0f, 0.0f, 1.0f);
 		glTranslatef(-centerX, -centerY, 0.0);
 
+		utils::SetColor(m_Color);
 		utils::FillRect(m_Shape);
 	}
 	glPopMatrix();

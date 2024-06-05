@@ -29,15 +29,22 @@ public:
 	Point2f GetRelativeCenter() const;
 	void SetAngle(float angle) { m_Angle = angle; }
 	bool IsInvincible() const { return m_IsInvincible; }
-	int GetHealth() const { return m_Health->GetHealth(); }
+	int GetHealth() const { return m_Health->GetTotalHealth(); }
 	Health* GetHealthObject() const { return m_Health.get(); }
 
 	bool IsColliding(const Rectf& actorShape) const;
 	bool CollidingWithDoor(const Rectf& actorShape) const;
-
+	int GetDamage() const { return m_BasicAttack->GetDamage(); }
 	void Attack();
 	void DealDamage(const int damage);
 	void AddDoorManager(DoorManager* doorManager) const { m_DoorManagerPtr = doorManager; };
+	void Pause() { pause = true; }
+	void Unpause() { pause = false; }
+	bool GetPause() const { return pause; }
+
+	void AddHealth() { m_Health->AddHealth(); }
+	void AddDamage() { m_BasicAttack->IncreaseDamage(); }
+	void AddFireRate() { m_BasicAttack->ReduceCooldown(); }
 private:
 	std::unique_ptr<ShootAttack> m_BasicAttack;
 	Rectf m_Shape;
@@ -53,6 +60,9 @@ private:
 	bool m_IsInvincible = false;
 	float m_Iframes = 0.0f;
 
+	bool pause = false;
 	void WarpPlayer();
+
+	bool m_IsPlayerDead = false;
 };
 

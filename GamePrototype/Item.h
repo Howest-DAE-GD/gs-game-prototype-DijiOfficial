@@ -70,3 +70,17 @@ public:
 	void Render() const override;
 	void Reset() override;
 };
+
+class Coin final : public Item
+{
+public:
+	Coin(Scene* scene, Player* player)
+		: Item(scene, player, 69)
+	{
+	};
+	~Coin() = default;
+
+	void Update() override;
+	void Render() const override;
+	void Reset() override;
+};

@@ -17,6 +17,7 @@ void ItemManager::Init(Scene* scene, Player* player)
 	m_ItemsMap.emplace(5, scene->CreateGameObjects<Key>(player, 1));
 	m_ItemsMap.emplace(6, scene->CreateGameObjects<Key>(player, 1));
 	m_ItemsMap.emplace(7, scene->CreateGameObjects<Key>(player, 999));
+	m_ItemsMap.emplace(69, scene->CreateGameObjects<Coin>(player));
 };
 
 void ItemManager::DropItem(const int id, const Point2f& pos)
@@ -41,6 +42,10 @@ void ItemManager::IsCollidingWithPlayer()
 				if (dynamic_cast<FinalKey*>(item.second))
 				{
 					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddFinalKey();
+				}
+				if (dynamic_cast<Coin*>(item.second))
+				{
+					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddCoin();
 				}
 			}
 		}

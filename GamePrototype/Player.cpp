@@ -20,8 +20,19 @@ Player::Player(Scene* scene)
 #include <iostream>
 void Player::Update()
 {
+	if (m_IsPlayerDead)
+	{
+		m_IsPlayerDead = false;
+		SceneManager::GetInstance().ResetScene("Level");
+		SceneManager::GetInstance().ResetScene("Hud");
+		return;
+	}
+
+	if (pause)
+		return;
+
 	WarpPlayer();
-	std::cout << m_Shape.left << " " << m_Shape.bottom << std::endl;
+	//std::cout << m_Shape.left << " " << m_Shape.bottom << std::endl;
 	m_BasicAttack->Update();
 
 	//maybe it's own function or class?
@@ -36,6 +47,7 @@ void Player::Update()
 		}
 	}
 
+	//doesnt work
 	if (showDeathText)
 	{
 		m_textAppearTime += dt;
@@ -43,6 +55,10 @@ void Player::Update()
 		{
 			m_textAppearTime = 0.f;
 			showDeathText = false;
+
+			//m_IsPlayerDead = false;
+			//SceneManager::GetInstance().ResetScene("Level");
+			//SceneManager::GetInstance().ResetScene("Hud");
 		}
 	}
 }
@@ -134,8 +150,7 @@ void Player::DealDamage(const int damage)
 	if (m_Health->GetHealth() <= 0)
 	{
 		showDeathText = true;
-		SceneManager::GetInstance().ResetScene("Level");
-		SceneManager::GetInstance().ResetScene("Hud");
+		m_IsPlayerDead = true;
 	}
 }
 
@@ -162,6 +177,6 @@ void Player::WarpPlayer()
 void Player::Reset()
 {
 	m_Shape = Rectf{ 4900, 1000, 64.f, 64.f };
-	m_Health->ResetHealth(400);
+	m_Health->ResetHealth();
 	//todo: reset attack as well and exp
 }
