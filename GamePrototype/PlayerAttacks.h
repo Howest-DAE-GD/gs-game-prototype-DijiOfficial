@@ -41,7 +41,7 @@ public:
 	{
 		if (m_AttackCoolDown > 0.f)
 		{
-			m_AttackCoolDown -= 0.1f;
+			m_AttackCoolDown -= 0.2f;
 		}
 	};
 
@@ -50,5 +50,5 @@ private:
 	std::vector<std::unique_ptr<Bullets>> m_Bullets;
 	bool m_HasAttacked{ false };
 	float timer{ 0.f };
-	float m_AttackCoolDown{ 1.5f };
+	float m_AttackCoolDown{ 1.2f };
 };

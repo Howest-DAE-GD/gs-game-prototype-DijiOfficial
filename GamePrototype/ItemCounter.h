@@ -9,7 +9,7 @@ public:
 	ItemCounter(Scene* scene);
 	~ItemCounter() = default;
 
-	void Update() override {};
+	void Update() override ;
 	void Render() const override;
 	void Reset() override;
 	void AddKey();
@@ -31,5 +31,6 @@ private:
 	const Point2f center{ 775.f, 475.f };
 	const Point2f pos{ 750.f, 465.f };
 	bool m_HasFinalKey = false;
+	bool wasEnterKey = false;
 };
 

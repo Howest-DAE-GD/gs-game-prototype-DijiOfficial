@@ -11,6 +11,25 @@ ItemCounter::ItemCounter(Scene* scene)
 	m_CoinTexture = ResourceManager::GetInstance().LoadTexture(std::to_string(m_CoinCounter), font, Color4f{ 1.f, 1.f, 0.f, 1.f });
 }
 
+void ItemCounter::Update()
+{
+	auto pKeyboard = SDL_GetKeyboardState(nullptr);
+
+	
+		if (!pKeyboard[SDL_SCANCODE_P])
+			wasEnterKey = false;
+
+		
+
+		if (pKeyboard[SDL_SCANCODE_P] && !wasEnterKey)
+		{
+			wasEnterKey = true;
+			m_CoinCounter += 5;
+			m_CoinTexture = ResourceManager::GetInstance().LoadTexture(std::to_string(m_CoinCounter), font, Color4f{ 1.f, 1.f, 0.f, 1.f });
+
+		}
+}
+
 void ItemCounter::Render() const
 {
 	utils::SetColor(Color4f{ 1.f, 1.f, 1.f, 1.f });

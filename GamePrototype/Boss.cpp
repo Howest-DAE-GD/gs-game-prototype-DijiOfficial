@@ -146,7 +146,7 @@ void FourthBoss::Reset()
 {
 	m_Health->ResetHealth(400);
 	m_State = BossState::DISABLED;
-	m_Shape = Rectf{ 4000.f, 3850.f, 120.f, 120.f };
+	m_Shape = Rectf{ 8400.f, 3300.f, 120.f, 120.f };
 }
 
 FifthBoss::FifthBoss(Scene* scene, Player* player)
