@@ -75,3 +75,24 @@ void Coin::Reset()
 	m_IsDropped = false;
 	m_IsOwned = false;
 }
+
+void BonusCoin::Update()
+{
+	if (m_IsOwned or not m_IsDropped)
+		return;
+
+	if (utils::IsOverlapping(GetShape(), m_PlayerPtr->GetShape()))
+	{
+		SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddCoin(10);
+		PickUp();
+	}
+}
+
+void BonusCoin::Render() const
+{
+	if (m_IsDropped)
+	{
+		utils::SetColor(Color4f{ 1.f, 1.f, 0.f, 1.f });
+		utils::FillArc(m_Center, 30, 30, 0, 360);
+	}
+}

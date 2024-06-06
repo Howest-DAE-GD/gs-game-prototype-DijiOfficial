@@ -4,11 +4,23 @@
 #include "Item.h"
 #include "SceneManager.h"
 #include "ItemCounter.h"
+#include "SVGParser.h"
 
 void ItemManager::Init(Scene* scene, Player* player)
 {
 	m_PlayerPtr = player;
 	
+	SVGParser::GetVerticesFromSvgFile("BonusCoins.svg", m_VerticesVec);
+	SVGParser::ParseSVGData(m_VerticesVec);
+
+	for (const auto& vec : m_VerticesVec)
+	{
+		for (const auto& pos : vec)
+		{
+			m_ItemsMap.emplace(70, scene->CreateGameObjects<BonusCoin>(player, pos));
+		}
+	}
+
 	m_ItemsMap.emplace(0, scene->CreateGameObjects<FinalKey>(player, 0));
 	m_ItemsMap.emplace(1, scene->CreateGameObjects<Key>(player, 1));
 	m_ItemsMap.emplace(2, scene->CreateGameObjects<Key>(player, 1));

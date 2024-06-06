@@ -84,3 +84,19 @@ public:
 	void Render() const override;
 	void Reset() override;
 };
+
+class BonusCoin final : public Item
+{
+public:
+	BonusCoin(Scene* scene, Player* player, const Point2f& pos)
+		: Item(scene, player, 70)
+	{
+		m_Center = { pos };
+		m_IsDropped = true;
+	};
+	~BonusCoin() = default;
+
+	void Update() override;
+	void Render() const override;
+	void Reset() override {};
+};

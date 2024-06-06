@@ -78,14 +78,17 @@ void Shop::Update()
 				{
 				case 0:
 					std::cout << "added Health" << std::endl;
+					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddHealth();
 					m_player->AddHealth();
 					break;
 				case 1:
 					std::cout << "added Damage" << std::endl;
+					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddDamage();
 					m_player->AddDamage();
 					break;
 				case 2:
 					std::cout << "added FireRate" << std::endl;
+					SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddFireRate();
 					m_player->AddFireRate();
 					break;
 				}

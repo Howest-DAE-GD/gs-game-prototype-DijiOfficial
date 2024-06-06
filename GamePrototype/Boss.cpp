@@ -5,7 +5,7 @@
 #include "TimeSingleton.h"
 #include "ItemManager.h"
 #include "SceneManager.h"
-
+#include "ItemCounter.h"
 FinalBoss::FinalBoss(Scene* scene, Player* player)
 	: Boss(scene, player, 0, 400)
 {
@@ -53,15 +53,18 @@ void Boss::Hit(int damage)
 	if (m_Health->GetHealth() <= 0)
 	{
 		m_State = BossState::DEAD;
+		SceneManager::GetInstance().GetScene("Hud")->GetGameObject<ItemCounter>()->AddDeadBoss();
+
 		if (SceneManager::GetInstance().GetScene("Level")->GetGameObject<BossManager>()->GetAreAllBossesDead())
 		{
 			ItemManager::GetInstance().DropItem(0, Point2f{ m_Shape.left, m_Shape.bottom });
 		}
 		else
 			ItemManager::GetInstance().DropItem(m_ID, Point2f{ m_Shape.left, m_Shape.bottom });
+		
+		m_CollisionSingleton.RemoveCollider(this);
 	}
 
-	//m_CollisionSingleton.RemoveCollider(this); //put this in the destructor (of enemy even?)
 }
 
 FirstBoss::FirstBoss(Scene* scene, Player* player, int id, int health )

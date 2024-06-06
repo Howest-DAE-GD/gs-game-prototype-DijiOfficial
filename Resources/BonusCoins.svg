@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg9"
+   width="8000"
+   height="4500"
+   viewBox="0 0 8000 4500"
+   sodipodi:docname="BonusCoins.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview181"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.15125"
+     inkscape:cx="3097.5207"
+     inkscape:cy="2241.3223"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg9" />
+  <defs
+     id="defs13" />
+  <g
+     id="g15">
+    <image
+       width="8000"
+       height="4500"
+       preserveAspectRatio="none"
+       xlink:href="../../black_white%20%5BRecovered%5D.png"
+       id="image17" />
+  </g>
+  <path
+     id="rect410"
+     style="opacity:0.33"
+     d="M 2112.5538,4220.3493 710.45315,1669.9361 2020.7493,489.77082 5623.6139,164.04768 6542.181,327.58073 4013.0347,796.12409 2105.376,2018.3865 l 2637.5754,-543.9049 330.1374,566.8389 63.0272,919.9379 2459.063,-1033.1612 -873.1685,1042.872 -364.0776,223.0371"
+     sodipodi:nodetypes="ccccccccccccc" />
+</svg>

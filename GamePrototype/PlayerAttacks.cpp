@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "CollisionSingleton.h"
 #include "TimeSingleton.h"
+#include "SceneManager.h"
 
 void ShootAttack::Update()
 {
@@ -35,6 +36,19 @@ void ShootAttack::Update()
 
 void ShootAttack::Render() const
 {
+	float percentage = timer / m_AttackCoolDown;
+	if (percentage > 1.0f) percentage = 1.0f;
+	if (timer == 0.f) percentage = 1.f;
+
+	const float barWidth = 64.0f * percentage;
+
+	const auto& pos = SceneManager::GetInstance().GetScene("Level")->GetGameObject<Player>()->GetPosition();
+	utils::SetColor(Color4f{ 0.f, 1.f, 1.f, 1.f });
+	utils::FillRect(Rectf{ pos.x - 32.f , pos.y - 55.f, barWidth, 8.f });
+	utils::SetColor(Color4f{ 0.f, 0.f, 0.f, 1.f });
+	utils::DrawRect(Rectf{ pos.x - 32.f, pos.y - 55.f, 64.f, 8.f }, 2);
+
+
 	for (size_t i{}; i < m_Bullets.size(); ++i)
 	{
 		m_Bullets[i]->Render();

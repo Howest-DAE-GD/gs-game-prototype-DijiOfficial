@@ -18,6 +18,7 @@ public:
 	void UseKey(const unsigned int doorId);
 
 private:
+	std::vector<std::vector<Point2f>> m_VerticesVec;
 	std::map<int, Item*> m_ItemsMap;
 
 	Player* m_PlayerPtr;
